@@ -13,7 +13,6 @@ public class BecApp extends ActionBarActivity {
         setContentView(R.layout.activity_bec_app);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
