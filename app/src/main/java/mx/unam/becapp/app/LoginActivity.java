@@ -170,7 +170,8 @@ public class LoginActivity extends Activity {
 			// perform the user login attempt.
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+            String[] params = {mAccountNumber, mPassword};
+			mAuthTask.execute(params);
 		}
 	}
 
@@ -219,13 +220,13 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, String> {
+	public class UserLoginTask extends AsyncTask<String, Void, String> {
 		@Override
-		protected String doInBackground(Void... params) {
+		protected String doInBackground(String... params) {
             String result = null;
 
 			try {
-                result =  sendUsernamePassword("123456789", "apidgosepassword");
+                result =  sendUsernamePassword(params[0], params[1]);
             } catch (IOException e) {
                 return "Unable to retrieve web page. URL may be invalid.";
 			}/* catch (InterruptedException e) {
