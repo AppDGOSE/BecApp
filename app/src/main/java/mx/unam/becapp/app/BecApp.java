@@ -11,6 +11,7 @@ public class BecApp extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bec_app);
+
     }
 
     @Override
@@ -32,5 +33,6 @@ public class BecApp extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }

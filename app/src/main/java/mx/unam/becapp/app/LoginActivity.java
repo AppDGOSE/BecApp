@@ -15,6 +15,23 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.content.Context;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import org.json.JSONObject;
+
+
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 /**
@@ -53,34 +70,34 @@ public class LoginActivity extends Activity {
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
+            .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id,
+                    KeyEvent keyEvent) {
+                    if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		findViewById(R.id.sign_in_button).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						
-						InputMethodManager imm;
-						imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-						
-						attemptLogin();
-					}
-				});
+        findViewById(R.id.sign_in_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        InputMethodManager imm;
+                        imm = (InputMethodManager)
+                            getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+                        attemptLogin();
+                    }
+                });
 	}
 
 	@Override
@@ -96,12 +113,13 @@ public class LoginActivity extends Activity {
 	 */
 	public void attemptLogin() {
 		if (mAuthTask != null) {
-			return;
+            return;
 		}
 
 		// Reset errors.
 		mAccountNumberView.setError(null);
 		mPasswordView.setError(null);
+        mLoginStatusMessageView.setError(null);
 
 		// Store values at the time of the login attempt.
 		mAccountNumber = mAccountNumberView.getText().toString();
@@ -128,6 +146,21 @@ public class LoginActivity extends Activity {
 			cancel = true;
 		}
 
+        // Check the network connection
+        // TODO: There's no place to display error.
+        /*
+        ConnectivityManager connMgr = (ConnectivityManager)
+            getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        TextView t = (TextView) findViewById(R.id.network_status_message);
+        if (networkInfo == null || !networkInfo.isConnected()) {
+            // No network connection
+			mLoginStatusMessageView.setText(getString(R.string.error_no_network));
+			focusView = mLoginStatusMessageView;
+            cancel = true;
+        }
+        */
+
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
 			// form field with an error.
@@ -135,7 +168,6 @@ public class LoginActivity extends Activity {
 		} else {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
-			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
 			mAuthTask.execute((Void) null);
@@ -187,26 +219,29 @@ public class LoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends AsyncTask<Void, Void, String> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+		protected String doInBackground(Void... params) {
+            String result = null;
 
 			try {
-				// Simulate network access.
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-			// TODO: register the new account here.
-			return true;
+                result =  sendUsernamePassword("123456789", "apidgosepassword");
+            } catch (IOException e) {
+                return "Unable to retrieve web page. URL may be invalid.";
+			}/* catch (InterruptedException e) {
+				return e.getMessage();
+			}*/
+
+			return result;
 		}
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(final String response) {
 			mAuthTask = null;
-			showProgress(false);
+			//showProgress(false);
 
+			mLoginStatusMessageView.setText(response);
+            /*
 			if (success) {
 				finish();
 			} else {
@@ -214,6 +249,7 @@ public class LoginActivity extends Activity {
 						.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
+            */
 		}
 
 		@Override
@@ -221,5 +257,67 @@ public class LoginActivity extends Activity {
 			mAuthTask = null;
 			showProgress(false);
 		}
+
+        /**
+         * Login.
+         * TODO: Move to somwhere else.
+         * */
+        private String sendUsernamePassword(String username, String password)
+            throws IOException {
+            InputStream is = null;
+            String url = "http://api-dgose.herokuapp.com/users/sign_in";
+            String result = null;
+
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(url);
+
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("account_number", username);
+                jsonObject.accumulate("password", password);
+
+                StringEntity se = new StringEntity(jsonObject.toString());
+
+                httpPost.setEntity(se);
+
+                httpPost.setHeader("Accept", "application/json");
+                httpPost.setHeader("Content-type", "application/json");
+
+                HttpResponse httpResponse = httpclient.execute(httpPost);
+
+                is = httpResponse.getEntity().getContent();
+
+                if(is != null)
+                    result = convertInputStreamToString(is);
+                else
+                    result = "Did not work!";
+
+            } catch (Exception e) {
+                result = e.getMessage();
+
+            } finally {
+                if (is != null) {
+                    is.close();
+                } 
+            }
+
+            return result;
+        }
 	}
+
+    /**
+     * Only to convert string, remove when no longer used.
+     */
+    private static String convertInputStreamToString(InputStream inputStream)
+        throws IOException{
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
+    } 
 }
