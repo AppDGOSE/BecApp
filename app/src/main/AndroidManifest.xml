@@ -17,7 +17,8 @@
             android:name="mx.unam.becapp.app.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible"
-			android:configChanges="keyboardHidden|orientation|screenSize" >
+			android:configChanges="keyboardHidden|orientation|screenSize"
+			android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
