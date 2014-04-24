@@ -272,9 +272,10 @@ public class LoginActivity extends Activity {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(url);
 
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("account_number", username);
-                jsonObject.accumulate("password", password);
+                // FIX: I mean, just look at it :-\
+                JSONObject jsonObject = new JSONObject(
+                        "{\"user\":{\"account_number\":\""+username+"\",\"password\":\""+password+"\"}}");
+                //result = jsonObject.toString();
 
                 StringEntity se = new StringEntity(jsonObject.toString());
 
