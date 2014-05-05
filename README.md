@@ -15,7 +15,7 @@ Cliente Android del sistema de la AppDGOSE. Gradle.
 
           sdk.dir=/path/to/sdk  
 
-  Dónde `/path/to/sdk` es la ruta absoluta hacia el SDK de Android.
-4. Al ejecutar `./gradlew check` en el directorio raíz debe concluir con el mensaje `BUILD SUCCESSFUL`.
+  Dónde `/path/to/sdk` es la ruta __absoluta__ hacia el SDK de Android.
+4. Al ejecutar `./gradlew check` en el directorio raíz, debe concluir con el mensaje `BUILD SUCCESSFUL`.
 
-Para probar la aplicación en un dispositivo con Android y USB debugging activado, primero conectar el dispositivo a la PC y ejecutar `./gradlew installDebug`.
+Para probar la aplicación en un dispositivo con Android y USB debugging activado o un AVD, primero conectar el dispositivo a la PC o iniciar el emulador y ejecutar `./gradlew installDebug`.
