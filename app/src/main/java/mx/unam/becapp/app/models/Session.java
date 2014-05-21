@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.HttpResponse;
 
@@ -18,20 +19,21 @@ public class Session {
      * @param number Número de cuenta como String.
      * @param password Contraseña.
      */
-    public boolean logIn(String number, String password) {
+    public String logIn(String number, String password) {
         InputStream is = null;
         String result = null;
 
-        // FIXME: I mean, just look at it :-\
-        JSONObject jsonUser = new JSONObject()
-            .put("account_number", number)
-            .put("password", password);
-        JSONObject jsonObject = new JSONObjects()
-            .put("user", jsonUser);
 
         try {
+            // Constuir el objeto JSON.
+            JSONObject jsonUser = new JSONObject()
+                .put("account_number", number)
+                .put("password", password);
+            JSONObject jsonObject = new JSONObject()
+                .put("user", jsonUser);
+
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
+            HttpPost httpPost = new HttpPost(app_url+action_url);
 
             StringEntity se = new StringEntity(jsonObject.toString());
 
@@ -44,22 +46,19 @@ public class Session {
 
             is = httpResponse.getEntity().getContent();
 
-            if(is != null)
-                result = convertInputStreamToString(is);
-            else
+            if(is != null) {
+                result = "May be it worked";
+                is.close();
+            } else {
                 result = "Did not work!";
+            }
 
         } catch (Exception e) {
             result = e.getMessage();
 
-        } finally {
-            if (is != null) {
-                is.close();
-            } 
         }
 
         return result;
-        return false;
     }
 
     /**
