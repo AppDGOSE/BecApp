@@ -1,4 +1,4 @@
-package mx.unam.becapp.app.models;
+package mx.unam.becapp.app;
 
 import org.json.JSONObject;
 import java.io.InputStream;

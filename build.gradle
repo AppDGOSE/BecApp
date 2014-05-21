@@ -13,5 +13,5 @@ allprojects {
     repositories {
         mavenCentral()
     }
-    //com.google.android.gms:play-services:4.0.30
 }
+
