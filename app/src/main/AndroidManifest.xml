@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mx.unam.becapp.app"
-	android:versionCode="0"
-	android:versionName="0.1">
+    package="mx.unam.becapp.app" >
 
     <!-- Permissiones needed since it's a API client -->
     <uses-permission android:name="android.permission.INTERNET" />
