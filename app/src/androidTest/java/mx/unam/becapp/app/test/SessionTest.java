@@ -12,8 +12,9 @@ public class SessionTest extends TestCase {
 
     @SmallTest
     public void testSessionLogIn () {
-        //Session s = new Session();
-        assertTrue(true);
+        Session s = new Session();
+        String response = s.logIn("123456789", "apidgosepassword");
+        assertEquals("Lorem ipsum", "{\"message\":[\"Authentication correct!\"]}", response);
     }
 
     @Override
