@@ -21,7 +21,7 @@ public class Session {
      * @param number Número de cuenta como String.
      * @param password Contraseña.
      */
-    public String logIn(String number, String password) {
+    public String signIn(String number, String password) {
         InputStream is = null;
         String result = null;
 
@@ -66,7 +66,7 @@ public class Session {
      * Envía el mensaje de fin de sesión a la API.
      *
      */
-    public boolean logOut() {
+    public boolean signOut() {
         return false;
     }
 
