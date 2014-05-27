@@ -6,9 +6,9 @@
 ## Perfil del becario `Profile`
 ![Diagrama de la clase Session](diagrams/models-session.png)
 
-## Historial de Depósitos `DepositLogs`
-![Diagrama de la clase Session](diagrams/models-deposits.png)
+## Historial de Depósitos `PaymentsSchedule`
+![Diagrama de la clase Session](diagrams/models-payments.png)
 
-## Programa de eventos `EventFeed`
+## Programa de eventos `EventsFeed`
 ![Diagrama de la clase Session](diagrams/models-events.png)
 
