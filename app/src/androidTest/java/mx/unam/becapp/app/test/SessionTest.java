@@ -12,9 +12,10 @@ public class SessionTest extends TestCase {
 
     @SmallTest
     public void testSessionSignIn () {
-        Session s = new Session();
-        String response = s.signIn("123456789", "apidgosepassword");
-        assertEquals("Lorem ipsum", "{\"message\":[\"Authentication correct!\"]}", response);
+        Session s = new Session("http://api-dgose.herokuapp.com", "/users/sign_in/");
+        s.signIn("123456789", "apidgosepassword");
+        //assertEquals(200, s.getStatus());
+        assertEquals("Authentication correct!", s.getMessage());
     }
 
     @Override
@@ -22,3 +23,4 @@ public class SessionTest extends TestCase {
         super.tearDown();
     }
 }
+

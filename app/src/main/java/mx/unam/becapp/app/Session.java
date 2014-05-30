@@ -1,19 +1,33 @@
 package mx.unam.becapp.app;
 
-import org.json.JSONObject;
+import java.net.URL;
+import java.net.HttpURLConnection;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.io.IOException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.HttpResponse;
+import java.io.OutputStreamWriter;
+import org.json.JSONObject;
+import android.util.Log;
 
 public class Session {
-    private String app_url = "http://api-dgose.herokuapp.com";
-    private String action_url = "/users/sign_in/";
+    private String url = null;
+    private String action = null;
+    private int status;
+    private String message = null;
+
+    /**
+     * Constructor
+     */
+    public Session(String url, String action) {
+        this.url = url;
+        this.action = action;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
 
     /**
      * Envia la solicitud de login a la API.
@@ -21,12 +35,21 @@ public class Session {
      * @param number Número de cuenta como String.
      * @param password Contraseña.
      */
-    public String signIn(String number, String password) {
+    public void signIn(String number, String password) { 
+        JSONObject response = null;
         InputStream is = null;
-        String result = null;
-
 
         try {
+            URL url = new URL( this.url + this.action );
+
+            // Configuración de la conexión.
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(10000);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setRequestProperty("Accept", "application/json; charset=utf8");
+            conn.setRequestProperty("Content-Type", "application/json; charset=utf8");
+
             // Constuir el objeto JSON.
             JSONObject jsonUser = new JSONObject()
                 .put("account_number", number)
@@ -34,56 +57,25 @@ public class Session {
             JSONObject jsonObject = new JSONObject()
                 .put("user", jsonUser);
 
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(app_url+action_url);
+            // Poner el objeto JSON en el cuerpo del request.
+            OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
+            wr.write(jsonObject.toString());
 
-            StringEntity se = new StringEntity(jsonObject.toString());
+            // Enviar
+            conn.connect();
+            int status = conn.getResponseCode();
+            Log.d("SIGNIN", "The response is: " + status);
 
-            httpPost.setEntity(se);
-
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-            HttpResponse httpResponse = httpclient.execute(httpPost);
-
-            is = httpResponse.getEntity().getContent();
-
-            if(is != null) {
-                result = convertInputStreamToString(is);
-                is.close();
-            } else {
-                result = "Did not work!";
-            }
+            // Parsear la respuesta.
+            is = conn.getInputStream();
+            response = new JSONObject(is.toString());
+            is.close();
+            this.status = response.getInt("status");
+            this.message = response.getString("message");
 
         } catch (Exception e) {
-            result = e.getMessage();
+            Log.d("SIGNIN", e.getMessage());
         }
-
-        return result;
     }
 
-    /**
-     * Envía el mensaje de fin de sesión a la API.
-     *
-     */
-    public boolean signOut() {
-        return false;
-    }
-
-    /**
-     * Extrae el contenido de la respuesta de la API como String.
-     */
-    private static String convertInputStreamToString(InputStream stream)
-        throws IOException {
-
-        BufferedReader reader = new BufferedReader( new InputStreamReader(stream));
-        String line = "";
-        String result = "";
-        while((line = reader.readLine()) != null)
-            result += line;
-
-        stream.close();
-        return result;
-
-    } 
 }
