@@ -3,6 +3,7 @@ package mx.unam.becapp.app.test;
 import junit.framework.TestCase;
 import mx.unam.becapp.app.Session;
 import android.test.suitebuilder.annotation.SmallTest;
+import java.util.Date;
 
 public class SessionTest extends TestCase {
     @Override
@@ -10,29 +11,35 @@ public class SessionTest extends TestCase {
         super.setUp();
     }
 
+    String API_URL = "http://api-dgose.herokuapp.com";
+    String ACTION = "/users/sign_in/";
+
     @SmallTest
     public void testURL() {
-        String url = "http://api-dgose.herokuapp.com";
-        String url2 = "http://dgose.herokuapp.com";
-        String action = "/users/sign_in/";
-        Session s = new Session(url2, action);
-        assertEquals(url2+action, s.getFullURL());
-        s.setURL(url);
-        assertEquals(url+action, s.getFullURL());
+        Session s = new Session(API_URL, ACTION);
+        assertEquals(API_URL+ACTION, s.getFullURL());
+    }
+
+    @SmallTest
+    public void testInvalidSignIn () {
+        Session s = new Session(API_URL, ACTION);
+        s.signIn("072101030", "wrongpass");
+        assertEquals("401", s.getStatus());
     }
 
     @SmallTest
     public void testSuccessfulSignIn () {
-        Session s = new Session("http://api-dgose.herokuapp.com", "/users/sign_in/");
+        Session s = new Session(API_URL, ACTION);
         s.signIn("072101030", "21101956");
         assertEquals("200", s.getStatus());
     }
 
     @SmallTest
-    public void testInvalidSignIn () {
-        Session s = new Session("http://api-dgose.herokuapp.com", "/users/sign_in/");
-        s.signIn("072101030", "wrongpass");
-        assertEquals("401", s.getStatus());
+    public void testDateObject () {
+        Session s = new Session(API_URL, ACTION);
+        s.signIn("072101030", "21101956");
+        Date date = null;
+        assertSame(date, s.getLastSignIn());
     }
 
     @Override

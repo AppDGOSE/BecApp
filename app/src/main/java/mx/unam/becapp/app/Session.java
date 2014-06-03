@@ -9,6 +9,9 @@ import java.io.OutputStreamWriter;
 import org.json.JSONObject;
 import android.util.Log;
 import java.lang.StringBuilder;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 import java.io.IOException;
 import org.json.JSONException;
@@ -18,6 +21,8 @@ public class Session {
     private String action = null;
     private String status = null;
     private String message = null;
+    private static String DFORMAT = "yyy-MM-dd HH:mm:ss Z";
+    private Date last_signin = null;
 
     /**
      * Constructor
@@ -25,10 +30,6 @@ public class Session {
     public Session(String url, String action) {
         this.url = url;
         this.action = action;
-    }
-
-    public void setURL(String new_url) {
-        this.url = new_url;
     }
 
     public String getFullURL() {
@@ -41,6 +42,10 @@ public class Session {
 
     public String getMessage() {
         return this.message;
+    }
+
+    public Date getLastSignIn() {
+        return this.last_signin;
     }
 
     /**
@@ -103,13 +108,18 @@ public class Session {
 
             this.status = result.getString("status");
             this.message = result.getString("message");
+
+            SimpleDateFormat dparse = new SimpleDateFormat(DFORMAT);
+            this.last_signin = dparse.parse(result
+                    .getJSONObject("user")
+                    .getString("last_login"));
+
         } catch (JSONException e) {
             Log.d("SIGNIN", e.getMessage());
-            this.status = "" + e.getMessage();
         } catch (IOException e) {
             Log.d("SIGNIN", e.getMessage());
-            this.status = "IOException: " + e.getMessage();
+        } catch (ParseException e) {
+            Log.d("SIGNIN", e.getMessage());
         }
     }
-
 }
