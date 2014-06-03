@@ -3,14 +3,20 @@ package mx.unam.becapp.app;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.io.OutputStreamWriter;
 import org.json.JSONObject;
 import android.util.Log;
+import java.lang.StringBuilder;
+
+import java.io.IOException;
+import org.json.JSONException;
 
 public class Session {
     private String url = null;
     private String action = null;
-    private int status;
+    private String status = null;
     private String message = null;
 
     /**
@@ -21,7 +27,15 @@ public class Session {
         this.action = action;
     }
 
-    public int getStatus() {
+    public void setURL(String new_url) {
+        this.url = new_url;
+    }
+
+    public String getFullURL() {
+        return this.url + this.action;
+    }
+
+    public String getStatus() {
         return this.status;
     }
 
@@ -37,10 +51,12 @@ public class Session {
      */
     public void signIn(String number, String password) { 
         JSONObject response = null;
-        InputStream is = null;
+        InputStream istream = null;
+        String raw = null;
+        int s;
 
         try {
-            URL url = new URL( this.url + this.action );
+            URL url = new URL( getFullURL() );
 
             // Configuración de la conexión.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -60,21 +76,39 @@ public class Session {
             // Poner el objeto JSON en el cuerpo del request.
             OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
             wr.write(jsonObject.toString());
+            wr.flush();
 
             // Enviar
             conn.connect();
-            int status = conn.getResponseCode();
-            Log.d("SIGNIN", "The response is: " + status);
+            s = conn.getResponseCode();
+            Log.d("SIGNIN", "Response status: " + s);
 
-            // Parsear la respuesta.
-            is = conn.getInputStream();
-            response = new JSONObject(is.toString());
-            is.close();
-            this.status = response.getInt("status");
-            this.message = response.getString("message");
+            // NOTE: HttpURLConnection pone el acceso al contenido de
+            // la respuesta en otro método cuando se trata de un error.
+            if (s == 200) {
+                istream = conn.getInputStream();
+            } else {
+                istream = conn.getErrorStream();
+            }
 
-        } catch (Exception e) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
+            String line;
+            StringBuilder sbuilder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sbuilder.append(line);
+            }
+            istream.close();
+            reader.close();
+            JSONObject result = new JSONObject(sbuilder.toString());
+
+            this.status = result.getString("status");
+            this.message = result.getString("message");
+        } catch (JSONException e) {
             Log.d("SIGNIN", e.getMessage());
+            this.status = "" + e.getMessage();
+        } catch (IOException e) {
+            Log.d("SIGNIN", e.getMessage());
+            this.status = "IOException: " + e.getMessage();
         }
     }
 
