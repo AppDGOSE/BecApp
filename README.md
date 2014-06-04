@@ -1,4 +1,4 @@
-BecApp2
+BecApp
 =======
 
 Cliente Android del sistema de la AppDGOSE. Gradle.
@@ -10,7 +10,7 @@ Cliente Android del sistema de la AppDGOSE. Gradle.
   * Android SDK Build-tools 19.0.3
   *  _Android Support Repository_
 2. Clonar el repositorio:  
-  `git clone git@github.com:AppDGOSE/BecApp2.git`
+  `git clone git@github.com:AppDGOSE/BecApp.git`
 3. Crear en la raiz del proyecto el archivo `local.properties` con el siguiente contenido:  
 
           sdk.dir=/path/to/sdk  
