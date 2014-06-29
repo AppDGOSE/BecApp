@@ -12,11 +12,11 @@ import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
-import android.webkit.CookieManager;
 
 import java.io.IOException;
 import org.json.JSONException;
-import java.text.ParseException;
+import java.net.CookieManager;
+import java.net.CookieHandler;
 
 public class Session {
     private String url;
@@ -35,8 +35,7 @@ public class Session {
      */
     public Session(String url) {
         this.url = url;
-        //this.cookiemanager = new CookieManager();
-        //CookieHandler.setDefault(cookiemanager);
+        CookieHandler.setDefault(new CookieManager());
     }
 
     public String getStatus() {

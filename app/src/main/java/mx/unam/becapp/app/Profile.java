@@ -12,7 +12,7 @@ import org.json.JSONException;
 public class Profile {
     public static String path = "/profile/";
     private Session session;
-
+	
     /* NOTE: Todas las siguientes propiedades
      * son de sólo lectura. Lo que implica que
      * deberían ser privadas y tener getters.
@@ -31,30 +31,35 @@ public class Profile {
     public String unam_email;
     public String com_email;
     public String scholarship;
-
+    public String curp;
+    public String current_cycle;
+    public String scholarship_status;
+		
     public Profile (Session s) {
-        this.session = s;
+        session = s;
     }
-
+	
     public void getData() {
         JSONObject result = session.send(path, "GET");
-
+		
         try {
-            JSONObject profile = result.getJSONObject("profile");
-            this.student_number = profile.getString("student_number");
-            this.fullname = profile.getString("name");
-            this.school = profile.getString("school");
-            this.major = profile.getString("major");
-            this.phone_number = profile.getJSONObject("phone")
-                .getString("direct");
-            this.mobile_number = profile.getJSONObject("phone")
-                .getString("mobile");
-            this.unam_email = profile.getJSONObject("email")
-                .getString("unam");
-            this.unam_email = profile.getJSONObject("email")
-                .getString("com");
-            this.scholarship = profile.getJSONObject("scholarship")
-                .getString("name");
+            if (session.getStatus().equals("200")) {
+				JSONObject profile = result.getJSONObject("profile");
+				
+				student_number = profile.getString("student_number");
+				fullname = profile.getString("name");
+                unam_email = profile.getJSONObject("email").getString("unam");
+                com_email = profile.getJSONObject("email").getString("com");
+                curp = profile.getString("curp");
+                phone_number = profile.getJSONObject("phone").getString("direct");
+                mobile_number = profile.getJSONObject("phone").getString("mobile");
+				school = profile.getString("school");
+				major = profile.getString("major");
+				scholarship = profile.getJSONObject("scholarship").getString("name");
+                scholarship_status = profile.getJSONObject("scholarship").getString("status");
+                current_cycle = profile.getString("current_cycle");
+            }
+			
         } catch (JSONException e) {
             Log.d("SIGNIN", e.getMessage());
         }
