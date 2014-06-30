@@ -22,7 +22,7 @@ public class BecAppActivity extends Activity {
 					mainIntent = new Intent().setClass(BecAppActivity.this, LoginActivity.class);
 					startActivity(mainIntent);
 
-					/** Destruimos esta activity para prevenit que el usuario retorne aqui
+					/** Destruimos esta activity para prevenir que el usuario retorne aqui
 						presionando el boton Atras.*/						
 					finish();
 

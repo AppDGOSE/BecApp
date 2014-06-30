@@ -28,8 +28,6 @@ public class Session {
     private String status;
     private String message;
     private Date last_signin;
-    //private CookieManager cookiemanager;
-
     /**
      * Constructor
      */
@@ -45,7 +43,6 @@ public class Session {
     public String getMessage() {
         return this.message;
     }
-
     public Date getLastSignIn() {
         return this.last_signin;
     }

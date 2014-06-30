@@ -9,7 +9,7 @@
 	<string name="login_progress_signing_in">Iniciando&#8230;</string>
 
 	<string name="error_invalid_account_number">Número de cuenta inválido</string>
-    <string name="error_field_required">Este campo es	obligatorio</string>
+    <string name="error_field_required">Este campo es obligatorio</string>
 
 	<string name="error_no_network">No hay conexión de red disponible</string>
 	<string name="error_incorrect_password">Datos incorrectos</string>
