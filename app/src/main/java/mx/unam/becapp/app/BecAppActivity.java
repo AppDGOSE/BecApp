@@ -28,7 +28,7 @@ public class BecAppActivity extends Activity {
 
 				}
 			};
-		
+
 		Timer timer = new Timer();
 		// Comienza el cronometro.
 		timer.schedule(task, splashDelay);

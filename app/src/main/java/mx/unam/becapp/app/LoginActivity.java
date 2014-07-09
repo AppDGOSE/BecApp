@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import android.widget.Toast;
+import android.content.Intent;
 
 import android.content.Context;
 
@@ -88,11 +89,9 @@ public class LoginActivity extends Activity {
                 });
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		return true;
-	}
+    public Session getSession() {
+        return this.session;
+    }
 
 	/**
 	 * Attempts to sign in or register the account specified by the login form.
@@ -142,7 +141,7 @@ public class LoginActivity extends Activity {
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mAuthTask = new UserLoginTask();
+			mAuthTask = new UserLoginTask(this);
             String[] params = {mAccountNumber, mPassword};
 			mAuthTask.execute(params);
 		}
@@ -194,6 +193,13 @@ public class LoginActivity extends Activity {
 	 * the user.
 	 */
 	public class UserLoginTask extends AsyncTask<String, Void, String> {
+
+        LoginActivity loginActivity;
+
+        public UserLoginTask(LoginActivity loginActivity) {
+            this.loginActivity = loginActivity;
+        }
+
 		@Override
 		protected String doInBackground(String[] params) {
 			session = new Session(API_URL);
@@ -205,33 +211,58 @@ public class LoginActivity extends Activity {
 		@Override
 		protected void onPostExecute(final String status) {
 			mAuthTask = null;
-
+            CharSequence text;
             if (status.equals("200")) {
-                CharSequence text = "Hello toast!";
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                Intent intent = new Intent(this.loginActivity, GeneralActivity.class);
+
+                intent.putExtra("sessionObject", this.loginActivity.getSession());
+                startActivity(intent);
+
+                showProgress(false);
+
             } else if (status.equals("401")) {
-                CharSequence text = "Fuck!";
+                text = "Datos inválidos";
+                showProgress(false);
+
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+
+            } else if (status.equals("500")){
+
+                Intent intent = new Intent(this.loginActivity, GeneralActivity.class);
+
+                intent.putExtra("sessionObject", this.loginActivity.getSession());
+                startActivity(intent);
+
+                showProgress(false);
+
+                //text = "Tenemos problemas con el servidor";
+                //showProgress(false);
+
+
+                //Context context = getApplicationContext();
+                //int duration = Toast.LENGTH_SHORT;
+
+                //Toast toast = Toast.makeText(context, text, duration);
+                //toast.show();
+
+
 
             } else {
-                CharSequence text = "Fuck!12";
+                text = "No hay conexión a internet";
+                showProgress(false);
+
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_SHORT;
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+
             }
-
-            showProgress(false);
-
 		}
 
 		@Override

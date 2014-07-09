@@ -1,5 +1,6 @@
 package mx.unam.becapp.app;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.InputStream;
@@ -7,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.OutputStreamWriter;
 import org.json.JSONObject;
+
+import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
@@ -18,15 +21,15 @@ import org.json.JSONException;
 import java.net.CookieManager;
 import java.net.CookieHandler;
 
-public class Session {
+public class Session implements Serializable {
     private String url;
 
     private static String signInPath = "/users/sign_in/";
     private static String signOutPath = "/users/sign_out/";
     private static String DFORMAT = "yyyy-MM-dd HH:mm:ss Z";
 
-    private String status;
-    private String message;
+    private String status = "";
+    private String message = "";
     private Date last_signin;
     /**
      * Constructor
@@ -80,9 +83,8 @@ public class Session {
                         .getString("last_login"));
             }
         } catch (JSONException e) {
-            Log.d("SIGNIN", e.getMessage());
         } catch (ParseException e) {
-            Log.d("ParseException", e.getMessage());
+        } catch (NullPointerException e) {
         }
 
     }
@@ -96,7 +98,9 @@ public class Session {
             this.status = result.getString("status");
             this.message = result.getString("message");
         } catch (JSONException e) {
-            Log.d("JSONException", e.getMessage());
+        } catch (NullPointerException e) {
+            this.status = "";
+            this.message = "";
         }
     }
 
@@ -107,7 +111,7 @@ public class Session {
      * @return          Objeto JSON con la respuesta de la API
      *                  según la acción de la API.
      */
-    public JSONObject send (String path, String method) {
+    public JSONObject send(String path, String method) {
         URL url;
         HttpURLConnection conn = null;
         int status = 0;
@@ -115,16 +119,14 @@ public class Session {
         try {
             url = new URL( this.url + path );
             conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
             conn.setRequestMethod(method);
             conn.setDoInput(true);
-            //conn.setDoOutput(true);
-            //conn.setRequestProperty("Accept", "application/json; charset=utf8");
+
             conn.setRequestProperty("Content-Type", "application/json; charset=utf8");
             conn.connect();
             status = conn.getResponseCode();
         } catch (IOException e) {
-            Log.d("IOException", e.getMessage());
+        } catch (NetworkOnMainThreadException e) {
         }
 
         InputStream istream;
@@ -141,9 +143,8 @@ public class Session {
             result = parseInputStream(istream);
             istream.close();
         } catch (IOException e) {
-            Log.d("IOException", e.getMessage());
         } catch (JSONException e) {
-            Log.d("JSONException", e.getMessage());
+        } catch (NetworkOnMainThreadException e) {
         }
 
         return result;
@@ -160,7 +161,7 @@ public class Session {
      * @return          Objeto JSON con la respuesta de la API
      *                  según la acción de la API.
      */
-    public JSONObject send (String path, String method, JSONObject data) {
+    public JSONObject send(String path, String method, JSONObject data) {
         URL url;
         HttpURLConnection conn = null;
 
@@ -180,7 +181,6 @@ public class Session {
             wr.write(data.toString());
             wr.flush();
         } catch (IOException e) {
-            Log.d("APIConnection.send", e.getMessage());
         }
 
         // Enviar mensaje
@@ -189,7 +189,6 @@ public class Session {
             conn.connect();
             status = conn.getResponseCode();
         } catch (IOException e) {
-            Log.d("APIConnection.send", e.getMessage());
         }
 
         InputStream istream;
@@ -206,9 +205,8 @@ public class Session {
             result = parseInputStream(istream);
             istream.close();
         } catch (IOException e) {
-            Log.d("IOException", e.getMessage());
         } catch (JSONException e) {
-            Log.d("JSONException", e.getMessage());
+        } catch (NullPointerException e) {
         }
 
         return result;
@@ -220,15 +218,14 @@ public class Session {
      * @return Objeto JSON.
      */
     private JSONObject parseInputStream (InputStream istream) throws JSONException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
-        StringBuilder sbuilder = new StringBuilder();
-        String line;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
+            StringBuilder sbuilder = new StringBuilder();
+            String line;
         try {
             while ((line = reader.readLine()) != null) {
                 sbuilder.append(line);
             }
         } catch (IOException e) {
-            Log.d("ParseInputStream", e.getMessage());
         }
         return new JSONObject(sbuilder.toString());
     }

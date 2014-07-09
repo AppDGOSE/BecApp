@@ -70,7 +70,6 @@ public class Events {
             }
 
         } catch (JSONException e) {
-            Log.d("SIGNIN", e.getMessage());
         }
     }
 }

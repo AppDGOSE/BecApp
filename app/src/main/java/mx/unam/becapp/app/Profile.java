@@ -40,9 +40,10 @@ public class Profile {
     }
 	
     public void getData() {
-        JSONObject result = session.send(path, "GET");
 		
         try {
+            JSONObject result = session.send(path, "GET");
+
             if (session.getStatus().equals("200")) {
 				JSONObject profile = result.getJSONObject("profile");
 				
@@ -61,7 +62,11 @@ public class Profile {
             }
 			
         } catch (JSONException e) {
-            Log.d("SIGNIN", e.getMessage());
+        } catch (NullPointerException e) {
         }
+    }
+
+    public boolean success() {
+        return student_number != null;
     }
 }

@@ -72,7 +72,6 @@ public class Payments {
             }
 
         } catch (JSONException e) {
-            Log.d("SIGNIN", e.getMessage());
         }
     }
 }

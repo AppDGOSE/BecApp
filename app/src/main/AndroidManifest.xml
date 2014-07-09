@@ -12,28 +12,35 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="mx.unam.becapp.app.BecAppActivity"
+            android:name=".BecAppActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-			
-			android:windowSoftInputMode="adjustResize|stateVisible"
-			android:configChanges="keyboardHidden|orientation|screenSize"
-			android:screenOrientation="portrait" >
-		  
-		  <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
-		  
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogTheme"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
-            android:name="mx.unam.becapp.app.LoginActivity"
+            android:name=".LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize|stateVisible"
-			android:configChanges="keyboardHidden|orientation|screenSize"
-			android:screenOrientation="portrait" >
-		  
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name=".GeneralActivity"
+            android:label="@string/title_activity_general" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
     </application>
-	
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
+
 </manifest>
