@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.unam.becapp.app.InfoFragment">
+    tools:context="mx.unam.becapp.app.InfoFragment"
+    tools:showIn="@layout/refs">
 
     <!-- Loading progress -->
 
@@ -33,6 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
+    <!-- Error button -->
     <LinearLayout
         android:id="@+id/error_status"
         android:layout_width="wrap_content"
@@ -54,24 +56,324 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/list_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <LinearLayout
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+    <LinearLayout
+        android:id="@+id/list_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- General Header -->
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/list_header_general"
+            android:id="@+id/general_header"
+            android:layout_gravity="left|top"
+            android:padding="5dp"/>
 
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
-        </LinearLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+
+        <!-- Student Number -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="123456789"
+            android:id="@+id/student_number_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_student_number"
+            android:id="@+id/student_number"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <!-- Student name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="John Doh"
+            android:id="@+id/student_name_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_student_name"
+            android:id="@+id/curp"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <!-- CURP -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="CABE910808"
+            android:id="@+id/curp_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_curp"
+            android:id="@+id/curp"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <!-- Email Header-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/list_header_email"
+            android:id="@+id/email_header"
+            android:layout_gravity="left|top"
+            android:paddingTop="35dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="user@unam.mx"
+            android:id="@+id/unam_email_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_unam_email"
+            android:id="@+id/unam_email"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="user@example.com"
+            android:id="@+id/com_email_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_com_email"
+            android:id="@+id/com_email"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <!-- School Header-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/list_header_school"
+            android:id="@+id/school_header"
+            android:layout_gravity="left|top"
+            android:paddingTop="35dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Facultad de Ciencias"
+            android:id="@+id/school_name_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_school_name"
+            android:id="@+id/school_name"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Ciencas de la Computación"
+            android:id="@+id/major_name_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_school_major"
+            android:id="@+id/major_name"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <!-- School Header-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/list_header_scholarship"
+            android:id="@+id/scholarship_header"
+            android:layout_gravity="left|top"
+            android:paddingTop="35dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pronabes"
+            android:id="@+id/scholarship_name_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_scholarship_name"
+            android:id="@+id/scholarship_name"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Activa"
+            android:id="@+id/scholarship_status_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_scholarship_status"
+            android:id="@+id/scholarship_cycle"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="2014-1"
+            android:id="@+id/scholarship_cycle_fill"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/list_item_scholarship_cycle"
+            android:id="@+id/scholarship_cycle"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>
+
+    </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

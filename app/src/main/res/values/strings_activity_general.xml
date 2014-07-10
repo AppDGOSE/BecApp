@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_general"></string>
+    <string name="title_info">Info</string>
+    <string name="title_payments">Pagos</string>
+    <string name="title_events">Eventos</string>
+
+    <string name="loading_progress">Obteniendo datos&#8230;</string>
+    <string name="action_reload">Volver a intentar</string>
+</resources>

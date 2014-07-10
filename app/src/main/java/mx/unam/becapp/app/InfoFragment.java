@@ -33,11 +33,10 @@ import mx.unam.becapp.app.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class InfoFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class InfoFragment extends Fragment {
     /**
      * The fragment's ListView/GridView.
      */
-    private AbsListView mListView;
     private View mLoadingStatusView;
     private View mErrorButtonView;
 
@@ -45,12 +44,6 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
     private ProfileTask pTask;
 
     private boolean alreadyAttempt = false;
-
-    /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
-     */
-    private ListAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -64,9 +57,6 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
     }
 
     @Override
@@ -91,17 +81,6 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
 
         attemptGetData();
 
-        //mListView = (AbsListView) view.findViewById(android.R.id.list);
-        //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-
-        // Set the adapter
-
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        //mListView.setOnItemClickListener(this);
-
-
         return view;
     }
 
@@ -117,7 +96,7 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
 
             alreadyAttempt = true;
         } else if(!profile.success()) {
-            showError(true);
+            showError(false);
         }
 
 
@@ -131,23 +110,6 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
     @Override
     public void onDetach() {
         super.onDetach();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
-
-        if (emptyText instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
     }
 
     /**
@@ -185,7 +147,7 @@ public class InfoFragment extends Fragment implements AbsListView.OnItemClickLis
      *
      */
     private void showError(final boolean show) {
-        mErrorButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mErrorButtonView.setVisibility(!show ? View.VISIBLE : View.GONE);
     }
 
     /**

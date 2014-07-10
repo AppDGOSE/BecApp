@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_header_general">GENERAL</string>
+    <string name="list_item_student_number">NÚMERO DE CUENTA</string>
+    <string name="list_item_student_name">NOMBRE</string>
+    <string name="list_item_curp">CURP</string>
+
+    <string name="list_header_email">EMAIL</string>
+    <string name="list_item_unam_email">UNAM</string>
+    <string name="list_item_com_email">COM</string>
+
+    <string name="list_header_school">ESCUELA</string>
+    <string name="list_item_school_name">NOMBRE</string>
+    <string name="list_item_school_major">CARRERA</string>
+
+    <string name="list_header_scholarship">BECA</string>
+    <string name="list_item_scholarship_name">NOMBRE</string>
+    <string name="list_item_scholarship_status">ESTATUS</string>
+    <string name="list_item_scholarship_cycle">CICLO ACTUAL</string>
+</resources>
