@@ -22,8 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import mx.unam.becapp.app.dummy.DummyContent;
-
 /**
  * A fragment representing a list of Items.
  * <p />
@@ -102,6 +100,10 @@ public class InfoFragment extends Fragment {
 
     }
 
+    public void showData() {
+
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -147,7 +149,7 @@ public class InfoFragment extends Fragment {
      *
      */
     private void showError(final boolean show) {
-        mErrorButtonView.setVisibility(!show ? View.VISIBLE : View.GONE);
+        mErrorButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -173,7 +175,7 @@ public class InfoFragment extends Fragment {
             pTask = null;
 
             if (status != null) {
-
+                showData();
             } else {
                 showProgress(false);
                 showError(true);

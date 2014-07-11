@@ -146,7 +146,7 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
                 case INFO:
                     return new InfoFragment(profile);
                 case PAYMENTS:
-                    return new InfoFragment(profile);
+                    return new PaymentsFragment(payments);
                 case EVENTS:
                     return new InfoFragment(profile);
             }

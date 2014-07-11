@@ -74,4 +74,8 @@ public class Payments {
         } catch (JSONException e) {
         }
     }
+
+    public boolean success() {
+        return calendar != null;
+    }
 }
