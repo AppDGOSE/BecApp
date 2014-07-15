@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class Payments {
     public static String path = "/payments/";
     private Session session;
+    private String status;
+    private String message;
 
     /* NOTE: Todas las siguientes propiedades
      * son de sólo lectura. Lo que implica que
@@ -45,14 +47,22 @@ public class Payments {
     public ArrayList<Payment> calendar;
 
     public Payments (Session s) {
-        session = new Session(s.getURL());
+        session = s;
     }
 
     public void getData() {
-        JSONObject result = session.send(path, "GET");
+
+        this.status = "0";
+        this.message = "Failure";
 
         try {
-            if (session.getStatus().equals("200")) {
+
+            JSONObject result = session.send(path, "GET");
+
+            status = result.getString("status");
+            message = result.getString("message");
+
+            if (status.equals("200")) {
                 JSONObject payments = result.getJSONObject("payments");
 
                 bank_name = payments.getJSONObject("bank").getString("name");
@@ -72,10 +82,35 @@ public class Payments {
             }
 
         } catch (JSONException e) {
+        //} finally {
+        //    dummyData();
         }
     }
 
     public boolean success() {
-        return calendar != null;
+        return status.equals("200");
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void dummyData() {
+        /**
+            student_number = "307048503";
+            fullname = "José Emiliano Cabrera Blancas";
+            unam_email = "user@unam.mx";
+            com_email = "user@example.com";
+            curp = "CABE910808MDASD";
+            phone_number = "(12 32 13 12";
+            mobile_number = "(55) 12 91 82 82 03";
+            school = "Facultad de Ciencias";
+            major = "Ciencias de la Computación";
+            scholarship = "Pronabes";
+            scholarship_status = "Activa";
+            current_cycle = "2014 1";
+
+            status = "200";
+         **/
     }
 }

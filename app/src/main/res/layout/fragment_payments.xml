@@ -1,8 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mx.unam.becapp.app.PaymentsFragment">
+    tools:context="mx.unam.becapp.app.PaymentsFragment"
+    tools:showIn="@layout/refs"
+    android:background="#D8D8D8">
 
     <!-- Loading progress -->
 
@@ -53,24 +57,18 @@
 
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/gridview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnWidth="135dp"
-            android:numColumns="auto_fit"
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/payments_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:gravity="center"
             android:verticalSpacing="10dp"
             android:horizontalSpacing="10dp"
+
+            android:columnWidth="130dp"
+            android:numColumns="auto_fit"
             android:stretchMode="spacingWidthUniform"
-            android:gravity="center_horizontal"
-            android:visibility="gone">
-
-            </GridView>
-
-    </ScrollView>
+            android:visibility="gone"/>
 
 </FrameLayout>

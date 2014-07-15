@@ -233,6 +233,19 @@ public class LoginActivity extends Activity {
 
             } else if (status.equals("500")){
 
+                text = "Tenemos problemas con el servidor";
+                showProgress(false);
+
+
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+
+
+            } else {
                 Intent intent = new Intent(this.loginActivity, GeneralActivity.class);
 
                 intent.putExtra("sessionObject", this.loginActivity.getSession());
@@ -240,27 +253,14 @@ public class LoginActivity extends Activity {
 
                 showProgress(false);
 
-                //text = "Tenemos problemas con el servidor";
+                //text = "No hay conexión a internet";
                 //showProgress(false);
-
 
                 //Context context = getApplicationContext();
                 //int duration = Toast.LENGTH_SHORT;
 
                 //Toast toast = Toast.makeText(context, text, duration);
                 //toast.show();
-
-
-
-            } else {
-                text = "No hay conexión a internet";
-                showProgress(false);
-
-                Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
 
             }
 		}

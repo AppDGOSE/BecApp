@@ -41,7 +41,7 @@ public class Events {
     public ArrayList<Event> events;
 
     public Events(Session s) {
-        session = new Session(s.getURL());
+        session = s;
     }
 
     public void getData() {

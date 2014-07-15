@@ -38,9 +38,6 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
     Profile profile;
     Events events;
 
-    InfoFragment infoFragment;
-    PaymentsFragment paymentsFragment;
-
     private static final int INFO = 0;
     private static final int PAYMENTS = 1;
     private static final int EVENTS = 2;
@@ -93,9 +90,6 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         payments = new Payments(session);
         profile = new Profile(session);
         events = new Events(session);
-
-        infoFragment = new InfoFragment(profile);
-        paymentsFragment = new PaymentsFragment(payments);
     }
 
 
@@ -155,9 +149,9 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
 
             switch (position) {
                 case INFO:
-                    return infoFragment;
+                    return new InfoFragment(profile);
                 case PAYMENTS:
-                    return paymentsFragment;
+                    return new PaymentsFragment(payments);
                 case EVENTS:
                     return new InfoFragment(profile);
             }

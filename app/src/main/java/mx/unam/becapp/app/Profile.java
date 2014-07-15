@@ -34,17 +34,26 @@ public class Profile {
     public String curp;
     public String current_cycle;
     public String scholarship_status;
+
+    public String status;
+    public String message;
 		
     public Profile (Session s) {
-        session = new Session(s.getURL());
+        session = s;
     }
 	
     public void getData() {
-		
+
+        this.status = "0";
+        this.message = "Failure";
+
         try {
             JSONObject result = session.send(path, "GET");
 
-            if (session.getStatus().equals("200")) {
+            status = result.getString("status");
+            message = result.getString("message");
+
+            if (status.equals("200")) {
 				JSONObject profile = result.getJSONObject("profile");
 				
 				student_number = profile.getString("student_number");
@@ -62,18 +71,13 @@ public class Profile {
             }
 			
         } catch (JSONException e) {
-        } catch (NullPointerException e) {
-        } finally {
-            dummyData();
+        //} finally {
+            //dummyData();
         }
     }
 
-    public boolean success() {
-        return session.getStatus().equals("200");
-    }
-
     public String getStatus() {
-        return session.getStatus();
+        return status;
     }
 
     public void dummyData() {
@@ -90,6 +94,6 @@ public class Profile {
         scholarship_status = "Activa";
         current_cycle = "2014 1";
 
-        session.setStatus("200");
+        status = "200";
     }
 }

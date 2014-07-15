@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,13 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 /**
@@ -41,8 +33,6 @@ public class InfoFragment extends Fragment {
 
     private Profile profile;
     private ProfileTask pTask;
-
-    private boolean alreadyAttempt = false;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -73,7 +63,6 @@ public class InfoFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        alreadyAttempt = false;
                         attemptGetData();
                     }
                 }
@@ -84,25 +73,11 @@ public class InfoFragment extends Fragment {
     }
 
     private void attemptGetData() {
-        if (!alreadyAttempt) {
             visibleProgress();
 
             pTask = new ProfileTask(profile);
             String[] params = {};
             pTask.execute(params);
-
-            alreadyAttempt = true;
-        } else if(!profile.success()) {
-            visibleError();
-        } else {
-            showData();
-            visibleProfile();
-        }
-    }
-
-    public void showData() {
-        TextView mStudentNumber = (TextView) mProfileView.findViewById(R.id.student_number_fill);
-        mStudentNumber.setText(profile.student_number);
     }
 
     @Override
@@ -175,6 +150,28 @@ public class InfoFragment extends Fragment {
         showProgress(false);
         showError(false);
 
+        TextView mStudentNumber = (TextView) mProfileView.findViewById(R.id.student_number_fill);
+        TextView mStudentName = (TextView) mProfileView.findViewById(R.id.student_name_fill);
+        TextView mCurp = (TextView) mProfileView.findViewById(R.id.curp_fill);
+        TextView mUNAMEmail = (TextView) mProfileView.findViewById(R.id.unam_email_fill);
+        TextView mComEmail = (TextView) mProfileView.findViewById(R.id.com_email_fill);
+        TextView mSchool = (TextView) mProfileView.findViewById(R.id.school_name_fill);
+        TextView mMajor = (TextView) mProfileView.findViewById(R.id.major_name_fill);
+        TextView mScholarship = (TextView) mProfileView.findViewById(R.id.scholarship_name_fill);
+        TextView mScholarshipStatus = (TextView) mProfileView.findViewById(R.id.scholarship_status_fill);
+        TextView mCurrentCycle = (TextView) mProfileView.findViewById(R.id.scholarship_cycle_fill);
+
+        mStudentNumber.setText(profile.student_number);
+        mStudentName.setText(profile.fullname);
+        mCurp.setText(profile.curp);
+        mUNAMEmail.setText(profile.unam_email);
+        mComEmail.setText(profile.com_email);
+        mSchool.setText(profile.school);
+        mMajor.setText(profile.major);
+        mScholarship.setText(profile.scholarship);
+        mScholarshipStatus.setText(profile.scholarship_status);
+        mCurrentCycle.setText(profile.current_cycle);
+
         showProfile(true);
     }
     /**
@@ -199,12 +196,10 @@ public class InfoFragment extends Fragment {
         protected void onPostExecute(final String status) {
             pTask = null;
 
-            if (status.equals("200")) {
-                showData();
+            if (status.equals("200"))
                 visibleProfile();
-            } else {
+            else
                 visibleError();
-            }
         }
 
         @Override

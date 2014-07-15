@@ -10,13 +10,13 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,17 +29,12 @@ import android.widget.TextView;
  */
 public class PaymentsFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
-
-    private GridView paymentsGridView;
-
     private Payments payments;
     private PaymentsTask pTask;
 
     private View mLoadingStatusView;
     private View mErrorButtonView;
-
-    private boolean alreadyAttempt = false;
+    private GridView mPaymentsGridView;
 
     public PaymentsFragment(Payments payments) {
         this.payments = payments;
@@ -56,7 +51,7 @@ public class PaymentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_payments, container, false);
 
-        paymentsGridView = (GridView) view.findViewById(R.id.gridview);
+        mPaymentsGridView = (GridView) view.findViewById(R.id.payments_gridview);
         mLoadingStatusView = view.findViewById(R.id.loading_status);
         mErrorButtonView = view.findViewById(R.id.error_status);
 
@@ -64,40 +59,21 @@ public class PaymentsFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        alreadyAttempt = false;
                         attemptGetData();
                     }
                 }
         );
 
         attemptGetData();
-
         return view;
     }
 
     private void attemptGetData() {
+        visibleProgress();
 
-        if (!alreadyAttempt) {
-            showError(false);
-            showProgress(true);
-
-            pTask = new PaymentsTask(payments);
-            String[] params = {};
-            pTask.execute(params);
-
-            alreadyAttempt = true;
-        } else if(!payments.success()) {
-            showError(false);
-        }
-
-
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        pTask = new PaymentsTask(payments);
+        String[] params = {};
+        pTask.execute(params);
     }
 
     @Override
@@ -148,6 +124,33 @@ public class PaymentsFragment extends Fragment {
         mErrorButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    private void showPayments(final boolean show) {
+        mPaymentsGridView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void visibleProgress() {
+        showPayments(false);
+        showError(false);
+
+        showProgress(true);
+    }
+
+    private void visibleError() {
+        showPayments(false);
+        showProgress(false);
+
+        showError(true);
+    }
+
+    private void visiblePayments() {
+        mPaymentsGridView.setAdapter(new Adapter(getActivity()));
+
+        showProgress(false);
+        showError(false);
+
+        showPayments(true);
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -163,28 +166,23 @@ public class PaymentsFragment extends Fragment {
         @Override
         protected String doInBackground(String[] params) {
             payments.getData();
-            if (payments.calendar == null)
-                return null;
-            else
-                return "";
+            return payments.getStatus();
         }
 
         @Override
         protected void onPostExecute(final String status) {
             pTask = null;
 
-            if (status != null) {
-                paymentsGridView.setAdapter(new Adapter(getActivity()));
-            } else {
-                showProgress(false);
-                showError(true);
-            }
+            if (status.equals("200"))
+                visiblePayments();
+            else
+                visibleError();
         }
 
         @Override
         protected void onCancelled() {
             pTask = null;
-            showProgress(false);
+            visibleError();
         }
     }
 
@@ -213,18 +211,22 @@ public class PaymentsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            if (payments.success())
+            if (payments.success()) {
                 return payments.calendar.size();
-            else
-                return 0;
+            } else {
+                Log.d("PaymentsFragment","Aca paso 1");
+                return 12;
+            }
         }
 
         @Override
         public Object getItem(int i) {
-            if (payments.success())
+            if (payments.success()) {
                 return payments.calendar.get(i);
-            else
-                return 0;
+            } else {
+                Log.d("PaymentsFragment","Aca paso 2");
+                return 12;
+            }
         }
 
         @Override
@@ -235,44 +237,29 @@ public class PaymentsFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            ViewHolder holder;
-            View row = view;
+            View row;
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            row = inflater.inflate(R.layout.grid, null);
 
             if (view == null) {
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.grid, viewGroup, false);
-
-                holder = new ViewHolder(row);
-                row.setTag(holder);
-
-
-            } else {
-                holder = (ViewHolder) view.getTag();
-            }
-
-            if (payments.success()) {
                 Payments.Payment payment = payments.calendar.get(i);
 
-                holder.month.setText(payment.month);
-                holder.day.setText(payment.done);
-                holder.status.setText(payment.status);
-                holder.amount.setText(payment.amount);
+                TextView mMonth = (TextView) row.findViewById(R.id.text_month);
+                TextView mDay = (TextView) row.findViewById(R.id.text_payment_day);
+                TextView mStatus = (TextView) row.findViewById(R.id.text_status);
+                TextView mAmount = (TextView) row.findViewById(R.id.text_amount);
+
+                mMonth.setText(payment.month);
+                mDay.setText(payment.done);
+                mStatus.setText(payment.status);
+                mAmount.setText(payment.amount);
+
+                return row;
+            } else {
+                return view;
             }
-            return row;
-        }
-    }
 
-    public class ViewHolder {
-        TextView month;
-        TextView day;
-        TextView amount;
-        TextView status;
 
-        public ViewHolder(View view) {
-            this.month = (TextView) view.findViewById(R.id.text_month);
-            this.day = (TextView) view.findViewById(R.id.text_payment_day);
-            this.amount = (TextView) view.findViewById(R.id.text_amount);
-            this.status = (TextView) view.findViewById(R.id.text_status);
         }
     }
 }

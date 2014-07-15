@@ -73,7 +73,7 @@ public class Session implements Serializable {
             jsonObject = new JSONObject()
                 .put("user", jsonUser);
         } catch (JSONException e) {
-            Log.d("SIGNIN", e.getMessage());
+            //Log.d("SIGNIN", e.getMessage());
         }
 
         JSONObject result = send(signInPath, "POST", jsonObject);
@@ -119,6 +119,7 @@ public class Session implements Serializable {
     public JSONObject send(String path, String method) {
         URL url;
         HttpURLConnection conn = null;
+
         int status = 0;
         // Preparación y configuración del mensaje.
         try {
@@ -150,6 +151,7 @@ public class Session implements Serializable {
         } catch (IOException e) {
         } catch (JSONException e) {
         } catch (NetworkOnMainThreadException e) {
+        } catch (NullPointerException e) {
         }
 
         return result;
@@ -170,14 +172,10 @@ public class Session implements Serializable {
         URL url;
         HttpURLConnection conn = null;
 
-        status = "0";
-        message = "Failure";
-
         // Preparación y configuración del mensaje.
         try {
             url = new URL( this.url + path );
             conn = (HttpURLConnection) url.openConnection();
-            //conn.setReadTimeout(10000);
             conn.setRequestMethod(method);
             conn.setDoInput(true);
             conn.setDoOutput(true);
