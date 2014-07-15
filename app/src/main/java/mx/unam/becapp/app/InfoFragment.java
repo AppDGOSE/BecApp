@@ -37,6 +37,7 @@ public class InfoFragment extends Fragment {
      */
     private View mLoadingStatusView;
     private View mErrorButtonView;
+    private View mProfileView;
 
     private Profile profile;
     private ProfileTask pTask;
@@ -64,9 +65,10 @@ public class InfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         mLoadingStatusView = view.findViewById(R.id.loading_status);
-
         mErrorButtonView = view.findViewById(R.id.error_status);
+        mProfileView = view.findViewById(R.id.list_info);
 
+        
         view.findViewById(R.id.reload_button).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -78,15 +80,12 @@ public class InfoFragment extends Fragment {
         );
 
         attemptGetData();
-
         return view;
     }
 
     private void attemptGetData() {
-
         if (!alreadyAttempt) {
-            showError(false);
-            showProgress(true);
+            visibleProgress();
 
             pTask = new ProfileTask(profile);
             String[] params = {};
@@ -94,14 +93,16 @@ public class InfoFragment extends Fragment {
 
             alreadyAttempt = true;
         } else if(!profile.success()) {
-            showError(false);
+            visibleError();
+        } else {
+            showData();
+            visibleProfile();
         }
-
-
     }
 
     public void showData() {
-
+        TextView mStudentNumber = (TextView) mProfileView.findViewById(R.id.student_number_fill);
+        mStudentNumber.setText(profile.student_number);
     }
 
     @Override
@@ -152,13 +153,37 @@ public class InfoFragment extends Fragment {
         mErrorButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
+    private void showProfile(final boolean show) {
+        mProfileView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void visibleProgress() {
+        showProfile(false);
+        showError(false);
+
+        showProgress(true);
+    }
+
+    private void visibleError() {
+        showProfile(false);
+        showProgress(false);
+
+        showError(true);
+    }
+
+    private void visibleProfile() {
+        showProgress(false);
+        showError(false);
+
+        showProfile(true);
+    }
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
     public class ProfileTask extends AsyncTask<String, Void, String> {
 
-        Profile profile ;
+        Profile profile;
 
         public ProfileTask(Profile profile) {
             this.profile = profile;
@@ -167,25 +192,25 @@ public class InfoFragment extends Fragment {
         @Override
         protected String doInBackground(String[] params) {
             profile.getData();
-            return profile.student_number;
+            return profile.getStatus();
         }
 
         @Override
         protected void onPostExecute(final String status) {
             pTask = null;
 
-            if (status != null) {
+            if (status.equals("200")) {
                 showData();
+                visibleProfile();
             } else {
-                showProgress(false);
-                showError(true);
+                visibleError();
             }
         }
 
         @Override
         protected void onCancelled() {
             pTask = null;
-            showProgress(false);
+            visibleError();
         }
     }
 }

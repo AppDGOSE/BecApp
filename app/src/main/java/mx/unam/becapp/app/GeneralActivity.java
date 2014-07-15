@@ -33,13 +33,19 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
      */
     ViewPager mViewPager;
     Session session;
+
     Payments payments;
     Profile profile;
     Events events;
 
+    InfoFragment infoFragment;
+    PaymentsFragment paymentsFragment;
+
     private static final int INFO = 0;
     private static final int PAYMENTS = 1;
     private static final int EVENTS = 2;
+
+    private static final int NUMBER_OF_TABS = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,7 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             }
         });
 
+        mViewPager.setOffscreenPageLimit(NUMBER_OF_TABS - 1);
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             // Create a tab with text corresponding to the page title defined by
@@ -82,9 +89,13 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
 
         Intent intent = getIntent();
         session = (Session) intent.getSerializableExtra("sessionObject");
+
         payments = new Payments(session);
         profile = new Profile(session);
         events = new Events(session);
+
+        infoFragment = new InfoFragment(profile);
+        paymentsFragment = new PaymentsFragment(payments);
     }
 
 
@@ -144,9 +155,9 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
 
             switch (position) {
                 case INFO:
-                    return new InfoFragment(profile);
+                    return infoFragment;
                 case PAYMENTS:
-                    return new PaymentsFragment(payments);
+                    return paymentsFragment;
                 case EVENTS:
                     return new InfoFragment(profile);
             }
@@ -157,7 +168,7 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return NUMBER_OF_TABS;
         }
 
         @Override

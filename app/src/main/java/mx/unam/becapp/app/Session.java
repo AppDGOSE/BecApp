@@ -39,10 +39,15 @@ public class Session implements Serializable {
         CookieHandler.setDefault(new CookieManager());
     }
 
+    public String getURL() {
+        return this.url;
+    }
     public String getStatus() {
         return this.status;
     }
-
+    public void setStatus(String status) {
+        this.status = status;
+    }
     public String getMessage() {
         return this.message;
     }
@@ -165,11 +170,14 @@ public class Session implements Serializable {
         URL url;
         HttpURLConnection conn = null;
 
+        status = "0";
+        message = "Failure";
+
         // Preparación y configuración del mensaje.
         try {
             url = new URL( this.url + path );
             conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000);
+            //conn.setReadTimeout(10000);
             conn.setRequestMethod(method);
             conn.setDoInput(true);
             conn.setDoOutput(true);

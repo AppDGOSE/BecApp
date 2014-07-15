@@ -39,8 +39,6 @@ public class PaymentsFragment extends Fragment {
     private View mLoadingStatusView;
     private View mErrorButtonView;
 
-
-
     private boolean alreadyAttempt = false;
 
     public PaymentsFragment(Payments payments) {

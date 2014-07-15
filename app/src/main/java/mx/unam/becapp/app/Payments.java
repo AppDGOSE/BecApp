@@ -45,7 +45,7 @@ public class Payments {
     public ArrayList<Payment> calendar;
 
     public Payments (Session s) {
-        session = s;
+        session = new Session(s.getURL());
     }
 
     public void getData() {
