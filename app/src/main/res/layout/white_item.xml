@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/white_item"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_background">
+
+        <TextView
+            android:id="@+id/text_month"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Enero"
+            android:textSize="18sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_payment_day"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="2 de febrero"
+            android:textSize="18sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_amount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="$750.00"
+            android:textSize="18sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Realizado"
+            android:textSize="18sp">
+        </TextView>
+</LinearLayout>

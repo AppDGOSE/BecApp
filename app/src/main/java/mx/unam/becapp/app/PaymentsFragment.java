@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -233,10 +234,12 @@ public class PaymentsFragment extends Fragment {
             View row = view;
             ViewHolder holder;
 
+            Payments.Payment payment = payments.calendar.get(i);
+
             if (row == null) {
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.green_item, null);
+                row = inflater.inflate(R.layout.white_item, null);
 
                 holder = new ViewHolder();
 
@@ -245,20 +248,42 @@ public class PaymentsFragment extends Fragment {
                 holder.mStatus = (TextView) row.findViewById(R.id.text_status);
                 holder.mAmount = (TextView) row.findViewById(R.id.text_amount);
 
+                holder.mBackground = row;
+
                 row.setTag(holder);
 
             } else {
                 holder = (ViewHolder) row.getTag();
             }
 
-            Payments.Payment payment = payments.calendar.get(i);
-
             holder.mMonth.setText(payment.month);
             holder.mDay.setText(payment.done);
             holder.mStatus.setText(payment.status);
             holder.mAmount.setText("$" + payment.amount);
 
+            Drawable background;
+
+            if (isYellow(payment))
+                background = getResources().getDrawable(R.drawable.yellow_background);
+            else
+                background = getResources().getDrawable(R.drawable.white_background);
+
+            int sdk = android.os.Build.VERSION.SDK_INT;
+            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                holder.mBackground.setBackgroundDrawable(background);
+            } else {
+                holder.mBackground.setBackground(background);
+            }
+
             return row;
+        }
+
+        public boolean isYellow(Payments.Payment payment) {
+            String month = payment.month.toUpperCase();
+
+            return (month.equals("FEBRERO") || month.equals("MARZO") ||
+                    month.equals("JUNIO") || month.equals("JULIO") ||
+                    month.equals("OCTUBRE") || month.equals("NOVIEMBRE"));
         }
 
         class ViewHolder {
@@ -266,6 +291,8 @@ public class PaymentsFragment extends Fragment {
             TextView mDay;
             TextView mStatus;
             TextView mAmount;
+
+            View mBackground;
         }
     }
 }

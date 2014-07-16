@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/list_item_student_name"
-            android:id="@+id/curp"
+            android:id="@+id/student_name"
             android:layout_gravity="left|top"
             android:paddingLeft="5dp"
             android:paddingBottom="5dp"/>
@@ -337,7 +337,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/list_item_scholarship_status"
-            android:id="@+id/scholarship_cycle"
+            android:id="@+id/scholarship_status"
             android:layout_gravity="left|top"
             android:paddingLeft="5dp"
             android:paddingBottom="5dp"/>

@@ -2,53 +2,11 @@
 
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/ActionBar</item>
 
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/ActionBar</item>
-    </style>
+    <!-- <style name="AppTheme" parent="Theme.Becappblue"/> -->
+    <style name="AppTheme" parent="Theme.Becappgoldandblue"/>
 
-    <!-- ActionBar styles -->
-    <style name="ActionBar"
-        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/actionbar_background</item>
-        <item name="android:backgroundStacked">@drawable/actionbar_background_stacked</item>
-        <item name="android:actionDropDownStyle">@style/DropDownNav.Theme</item>
-
-        <!-- Support library compatibility -->
-        <item name="background">@drawable/actionbar_background</item>
-        <item name="backgroundStacked">@drawable/actionbar_background_stacked</item>
-
-        <item name="actionDropDownStyle">@style/DropDownNav.Theme</item>
-
-
-    </style>
-
-
-    <drawable name="actionbar_background">
-        #D9A51A
-    </drawable>
-
-    <drawable name="actionbar_background_stacked">
-        #DDB548
-    </drawable>
-
-    <style name="DropDownNav.Theme" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">@drawable/popup_background</item>
-        <item name="android:popupBackground">@drawable/selectable_background</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background</item>
-    </style>
-
-    <drawable name="popup_background">
-        #AE8416
-    </drawable>
-
-    <drawable name="selectable_background">
-        #CB9A19
-    </drawable>
-
-    <style name="DialogTheme" parent="@style/Theme.AppCompat.Light">
+    <style name="DialogTheme" parent="@style/AppTheme">
         <item name="android:windowNoTitle">true</item>
     </style>
 
