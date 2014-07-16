@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,6 +202,10 @@ public class PaymentsFragment extends Fragment {
 
     public class Adapter extends BaseAdapter {
 
+        final static String BLUE = "#33B5E5";
+        final static String YELLOW = "#FFBB33";
+        final static String GREEN = "#99CC00";
+
         private Context context;
 
         public Adapter(Context context) {
@@ -211,22 +214,12 @@ public class PaymentsFragment extends Fragment {
 
         @Override
         public int getCount() {
-            if (payments.success()) {
-                return payments.calendar.size();
-            } else {
-                Log.d("PaymentsFragment","Aca paso 1");
-                return 12;
-            }
+            return payments.calendar.size();
         }
 
         @Override
         public Object getItem(int i) {
-            if (payments.success()) {
-                return payments.calendar.get(i);
-            } else {
-                Log.d("PaymentsFragment","Aca paso 2");
-                return 12;
-            }
+            return payments.calendar.get(i);
         }
 
         @Override
@@ -237,29 +230,42 @@ public class PaymentsFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            View row;
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.grid, null);
+            View row = view;
+            ViewHolder holder;
 
-            if (view == null) {
-                Payments.Payment payment = payments.calendar.get(i);
+            if (row == null) {
 
-                TextView mMonth = (TextView) row.findViewById(R.id.text_month);
-                TextView mDay = (TextView) row.findViewById(R.id.text_payment_day);
-                TextView mStatus = (TextView) row.findViewById(R.id.text_status);
-                TextView mAmount = (TextView) row.findViewById(R.id.text_amount);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.green_item, null);
 
-                mMonth.setText(payment.month);
-                mDay.setText(payment.done);
-                mStatus.setText(payment.status);
-                mAmount.setText(payment.amount);
+                holder = new ViewHolder();
 
-                return row;
+                holder.mMonth = (TextView) row.findViewById(R.id.text_month);
+                holder.mDay = (TextView) row.findViewById(R.id.text_payment_day);
+                holder.mStatus = (TextView) row.findViewById(R.id.text_status);
+                holder.mAmount = (TextView) row.findViewById(R.id.text_amount);
+
+                row.setTag(holder);
+
             } else {
-                return view;
+                holder = (ViewHolder) row.getTag();
             }
 
+            Payments.Payment payment = payments.calendar.get(i);
 
+            holder.mMonth.setText(payment.month);
+            holder.mDay.setText(payment.done);
+            holder.mStatus.setText(payment.status);
+            holder.mAmount.setText("$" + payment.amount);
+
+            return row;
+        }
+
+        class ViewHolder {
+            TextView mMonth;
+            TextView mDay;
+            TextView mStatus;
+            TextView mAmount;
         }
     }
 }
