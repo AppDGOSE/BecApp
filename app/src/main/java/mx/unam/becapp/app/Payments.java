@@ -48,8 +48,8 @@ public class Payments extends Information {
 
     public void getData() {
 
-        this.status = "0";
-        this.message = "Failure";
+        status = "0";
+        message = "Failure";
 
         try {
 

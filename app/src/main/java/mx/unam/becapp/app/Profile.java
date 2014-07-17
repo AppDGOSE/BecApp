@@ -40,8 +40,8 @@ public class Profile extends Information {
 	
     public void getData() {
 
-        this.status = "0";
-        this.message = "Failure";
+        status = "0";
+        message = "Failure";
 
         try {
             JSONObject result = session.send(path, "GET");

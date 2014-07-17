@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Clase para contener la información
  * del prefil de un becario.
  */
-public class Events {
+public class Events extends Information {
     public static String path = "/events/";
     private Session session;
 
@@ -40,14 +40,21 @@ public class Events {
 
     public ArrayList<Event> events;
 
-    public Events(Session s) {
-        session = s;
+    public Events(Session session) {
+        this.session = session;
     }
 
     public void getData() {
-        JSONObject result = session.send(path, "GET");
 
+		status = "0";
+		message = "Failure";
+		
         try {
+			JSONObject result = session.send(path, "GET");
+			
+			status = result.getString("status");
+			message = result.getString("message");
+
             if (session.getStatus().equals("200")) {
                 JSONArray events = result.getJSONArray("events");
                 this.events = new ArrayList<Event>(events.length());
