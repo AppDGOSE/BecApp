@@ -210,8 +210,10 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(final String status) {
-			mAuthTask = null;
+
+            mAuthTask = null;
             CharSequence text;
+
             if (status.equals("200")) {
 
                 Intent intent = new Intent(this.loginActivity, GeneralActivity.class);
@@ -246,22 +248,15 @@ public class LoginActivity extends Activity {
 
 
             } else {
-                Intent intent = new Intent(this.loginActivity, GeneralActivity.class);
 
-                intent.putExtra("sessionObject", this.loginActivity.getSession());
-                startActivity(intent);
-
+                text = "No hay conexión a internet";
                 showProgress(false);
 
-                //text = "No hay conexión a internet";
-                //showProgress(false);
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_SHORT;
 
-                //Context context = getApplicationContext();
-                //int duration = Toast.LENGTH_SHORT;
-
-                //Toast toast = Toast.makeText(context, text, duration);
-                //toast.show();
-
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
 		}
 

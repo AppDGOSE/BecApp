@@ -161,7 +161,7 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show total tabs.
             return NUMBER_OF_TABS;
         }
 

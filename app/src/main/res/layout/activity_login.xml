@@ -61,9 +61,9 @@
                 android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"/>
 
             <Button
                 android:id="@+id/sign_in_button"
@@ -76,7 +76,4 @@
                 android:text="@string/action_sign_in" />
         </LinearLayout>
     </ScrollView>
-
 </merge>
-
-

@@ -1,13 +1,9 @@
 package mx.unam.becapp.app;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,17 +23,10 @@ import android.widget.TextView;
  * create an instance of this fragment.
  *
  */
-public class PaymentsFragment extends Fragment {
-
-    private Payments payments;
-    private PaymentsTask pTask;
-
-    private View mLoadingStatusView;
-    private View mErrorButtonView;
-    private GridView mPaymentsGridView;
+public class PaymentsFragment extends TabFragment {
 
     public PaymentsFragment(Payments payments) {
-        this.payments = payments;
+        this.information = payments;
     }
 
     @Override
@@ -51,7 +40,7 @@ public class PaymentsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_payments, container, false);
 
-        mPaymentsGridView = (GridView) view.findViewById(R.id.payments_gridview);
+        mInformationView = (GridView) view.findViewById(R.id.payments_gridview);
         mLoadingStatusView = view.findViewById(R.id.loading_status);
         mErrorButtonView = view.findViewById(R.id.error_status);
 
@@ -68,14 +57,6 @@ public class PaymentsFragment extends Fragment {
         return view;
     }
 
-    private void attemptGetData() {
-        visibleProgress();
-
-        pTask = new PaymentsTask(payments);
-        String[] params = {};
-        pTask.execute(params);
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -86,126 +67,19 @@ public class PaymentsFragment extends Fragment {
         super.onDetach();
     }
 
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                int shortAnimTime = getResources().getInteger(
-                        android.R.integer.config_shortAnimTime);
+    protected void visibleInformation() {
 
-                mLoadingStatusView.setVisibility(View.VISIBLE);
-                mLoadingStatusView.animate().setDuration(shortAnimTime)
-                        .alpha(show ? 1 : 0)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                mLoadingStatusView.setVisibility(show ? View.VISIBLE
-                                        : View.GONE);
-                            }
-                        });
+        GridView mPaymentsGridView = (GridView) mInformationView;
 
-            } else {
-                mLoadingStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-            }
-        } catch(IllegalStateException e) {
-        }
-    }
-
-    /**
-     *
-     */
-    private void showError(final boolean show) {
-        mErrorButtonView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    private void showPayments(final boolean show) {
-        mPaymentsGridView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    private void visibleProgress() {
-        showPayments(false);
-        showError(false);
-
-        showProgress(true);
-    }
-
-    private void visibleError() {
-        showPayments(false);
-        showProgress(false);
-
-        showError(true);
-    }
-
-    private void visiblePayments() {
         mPaymentsGridView.setAdapter(new Adapter(getActivity()));
 
         showProgress(false);
         showError(false);
 
-        showPayments(true);
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class PaymentsTask extends AsyncTask<String, Void, String> {
-
-        Payments payments ;
-
-        public PaymentsTask(Payments payments) {
-            this.payments = payments;
-        }
-
-        @Override
-        protected String doInBackground(String[] params) {
-            payments.getData();
-            return payments.getStatus();
-        }
-
-        @Override
-        protected void onPostExecute(final String status) {
-            pTask = null;
-
-            if (status.equals("200"))
-                visiblePayments();
-            else
-                visibleError();
-        }
-
-        @Override
-        protected void onCancelled() {
-            pTask = null;
-            visibleError();
-        }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        showInformation(true);
     }
 
     public class Adapter extends BaseAdapter {
-
-        final static String BLUE = "#33B5E5";
-        final static String YELLOW = "#FFBB33";
-        final static String GREEN = "#99CC00";
 
         private Context context;
 
@@ -215,11 +89,13 @@ public class PaymentsFragment extends Fragment {
 
         @Override
         public int getCount() {
+            Payments payments = (Payments) information;
             return payments.calendar.size();
         }
 
         @Override
         public Object getItem(int i) {
+            Payments payments = (Payments) information;
             return payments.calendar.get(i);
         }
 
@@ -233,6 +109,7 @@ public class PaymentsFragment extends Fragment {
 
             View row = view;
             ViewHolder holder;
+            Payments payments = (Payments) information;
 
             Payments.Payment payment = payments.calendar.get(i);
 
@@ -263,7 +140,7 @@ public class PaymentsFragment extends Fragment {
 
             Drawable background;
 
-            if (isYellow(payment))
+            if (isYellow(i))
                 background = getResources().getDrawable(R.drawable.yellow_background);
             else
                 background = getResources().getDrawable(R.drawable.white_background);
@@ -278,12 +155,9 @@ public class PaymentsFragment extends Fragment {
             return row;
         }
 
-        public boolean isYellow(Payments.Payment payment) {
-            String month = payment.month.toUpperCase();
+        public boolean isYellow(int i) {
 
-            return (month.equals("FEBRERO") || month.equals("MARZO") ||
-                    month.equals("JUNIO") || month.equals("JULIO") ||
-                    month.equals("OCTUBRE") || month.equals("NOVIEMBRE"));
+            return (i == 1 || i == 2 || i == 5 || i == 6 || i == 9 || i == 10);
         }
 
         class ViewHolder {

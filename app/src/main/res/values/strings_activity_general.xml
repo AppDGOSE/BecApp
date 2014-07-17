@@ -5,6 +5,6 @@
     <string name="title_payments">Pagos</string>
     <string name="title_events">Eventos</string>
 
-    <string name="loading_progress">Obteniendo datos&#8230;</string>
-    <string name="action_reload">Volver a intentar</string>
+    <string name="loading_progress">Cargando&#8230;</string>
+    <string name="action_reload">Reintentar</string>
 </resources>

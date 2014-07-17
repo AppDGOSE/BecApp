@@ -1,7 +1,5 @@
 package mx.unam.becapp.app;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -12,11 +10,8 @@ import java.util.ArrayList;
  * Clase para contener la información
  * del prefil de un becario.
  */
-public class Payments {
+public class Payments extends Information {
     public static String path = "/payments/";
-    private Session session;
-    private String status;
-    private String message;
 
     /* NOTE: Todas las siguientes propiedades
      * son de sólo lectura. Lo que implica que
@@ -41,13 +36,14 @@ public class Payments {
             this.status = status;
         }
     }
+	
     public String bank_name;
     public String bank_account;
 
     public ArrayList<Payment> calendar;
 
-    public Payments (Session s) {
-        session = s;
+    public Payments (Session session) {
+        this.session = session;
     }
 
     public void getData() {
@@ -82,35 +78,7 @@ public class Payments {
             }
 
         } catch (JSONException e) {
-        //} finally {
-        //    dummyData();
+        } catch (NullPointerException e) {
         }
-    }
-
-    public boolean success() {
-        return status.equals("200");
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void dummyData() {
-        /**
-            student_number = "307048503";
-            fullname = "José Emiliano Cabrera Blancas";
-            unam_email = "user@unam.mx";
-            com_email = "user@example.com";
-            curp = "CABE910808MDASD";
-            phone_number = "(12 32 13 12";
-            mobile_number = "(55) 12 91 82 82 03";
-            school = "Facultad de Ciencias";
-            major = "Ciencias de la Computación";
-            scholarship = "Pronabes";
-            scholarship_status = "Activa";
-            current_cycle = "2014 1";
-
-            status = "200";
-         **/
     }
 }
