@@ -43,7 +43,8 @@
 			style="@style/LoginFormContainer"
             android:layout_gravity="center"
 			android:gravity="center_horizontal"
-			android:orientation="vertical">
+			android:orientation="vertical"
+            android:background="@drawable/white_background">
 
             <EditText
                 android:id="@+id/account_number"
@@ -52,7 +53,13 @@
                 android:hint="@string/prompt_account_number"
                 android:inputType="number"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:padding="15dp"
+                android:background="@drawable/white_background"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="5dp"/>
 
             <EditText
                 android:id="@+id/password"
@@ -63,17 +70,22 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="numberPassword"
                 android:maxLines="1"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:padding="15dp"
+                android:background="@drawable/white_background"/>
 
-            <Button
-                android:id="@+id/sign_in_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="@string/action_sign_in" />
+                 <Button
+                    android:id="@+id/sign_in_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:text="@string/action_sign_in"
+                    android:background="#E9EAED"
+                    />
+
         </LinearLayout>
     </ScrollView>
 </merge>

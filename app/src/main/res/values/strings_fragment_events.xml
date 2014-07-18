@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start_date_event">Fecha de Inicio</string>
+    <string name="end_date_event">Fecha de Finalización</string>
+    <string name="place_event">Lugar</string>
+    <string name="button_link">Ir a la página</string>
+
+</resources>

@@ -74,9 +74,11 @@ public class Events extends Information {
                     event.alias = temp.getString("alias");
                     event.email = temp.getString("email");
                 }
-            }
+
+        }
 
         } catch (JSONException e) {
+        } catch (NullPointerException e) {
         }
     }
 }

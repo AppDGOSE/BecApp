@@ -3,8 +3,6 @@ package mx.unam.becapp.app;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -116,7 +114,7 @@ public class PaymentsFragment extends TabFragment {
             if (row == null) {
 
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.white_item, null);
+                row = inflater.inflate(R.layout.white_payment, null);
 
                 holder = new ViewHolder();
 
