@@ -92,13 +92,18 @@ public class EventsFragment extends TabFragment {
         @Override
         public int getCount() {
             Events events = (Events) information;
-            return events.events.size();
+            if (events.events != null)
+                return events.events.size();
+            else
+                return 0;
         }
 
         @Override
         public Object getItem(int i) {
             Events events = (Events) information;
-            return events.events.get(i);
+            if (events.events != null)
+                return events.events.get(i);
+            return null;
         }
 
         @Override
@@ -109,9 +114,13 @@ public class EventsFragment extends TabFragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            Events events = (Events) information;
+
+            if (events.events == null)
+                return view;
+
             View row = view;
             ViewHolder holder;
-            Events events = (Events) information;
 
             final Events.Event event = events.events.get(i);
 
@@ -144,17 +153,17 @@ public class EventsFragment extends TabFragment {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            Uri uri;
+                            String browser_url = "";
 
                             try {
 
-                                Uri uri;
+                                if (!("http://").equals(event.url.substring(0, 7)))
+                                    browser_url = "http://" + event.url;
+                                 else
+                                    browser_url = event.url;
 
-                                if (!(event.url.substring(0, 7).equals("http://")))
-                                    uri = Uri.parse("http://" + event.url);
-                                else
-                                    uri = Uri.parse(event.url);
-
-
+                                uri = Uri.parse(browser_url);
                                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                 startActivity(intent);
                             } catch (ActivityNotFoundException e) {

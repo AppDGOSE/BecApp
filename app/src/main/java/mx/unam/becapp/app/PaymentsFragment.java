@@ -88,13 +88,19 @@ public class PaymentsFragment extends TabFragment {
         @Override
         public int getCount() {
             Payments payments = (Payments) information;
-            return payments.calendar.size();
+            if (payments.calendar != null)
+                return payments.calendar.size();
+            else
+                return 0;
         }
 
         @Override
         public Object getItem(int i) {
             Payments payments = (Payments) information;
-            return payments.calendar.get(i);
+            if (payments.calendar != null)
+                return payments.calendar.get(i);
+            else
+                return null;
         }
 
         @Override
@@ -105,9 +111,13 @@ public class PaymentsFragment extends TabFragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
+            Payments payments = (Payments) information;
+
+            if (payments.calendar == null)
+                return view;
+
             View row = view;
             ViewHolder holder;
-            Payments payments = (Payments) information;
 
             Payments.Payment payment = payments.calendar.get(i);
 

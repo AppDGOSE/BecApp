@@ -21,6 +21,10 @@ import android.content.Intent;
 import android.content.Context;
 
 import android.view.inputmethod.InputMethodManager;
+
+import java.net.CookieHandler;
+import java.net.CookieManager;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -50,6 +54,8 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+        CookieHandler.setDefault(new CookieManager());
 
 		setContentView(R.layout.activity_login);
 

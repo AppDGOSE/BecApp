@@ -18,8 +18,6 @@ import java.util.Date;
 
 import java.io.IOException;
 import org.json.JSONException;
-import java.net.CookieManager;
-import java.net.CookieHandler;
 
 public class Session implements Serializable {
     private String url;
@@ -36,7 +34,6 @@ public class Session implements Serializable {
      */
     public Session(String url) {
         this.url = url;
-        CookieHandler.setDefault(new CookieManager());
     }
 
     public String getURL() {
@@ -81,7 +78,7 @@ public class Session implements Serializable {
             this.status = result.getString("status");
             this.message = result.getString("message");
 
-            if (this.status == "200") {
+            if (this.status.equals("200")) {
                 SimpleDateFormat dparse = new SimpleDateFormat(DFORMAT);
                 this.last_signin = dparse.parse(result
                         .getJSONObject("user")
@@ -220,7 +217,7 @@ public class Session implements Serializable {
 
     /**
      * Construye el objeto JSON dentro de un Input Stream.
-     * @param stream Objeto InputStream que contiene una cadena JSON.
+     * @param istream Objeto InputStream que contiene una cadena JSON.
      * @return Objeto JSON.
      */
     private JSONObject parseInputStream (InputStream istream) throws JSONException {
