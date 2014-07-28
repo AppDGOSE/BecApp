@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="payments_month">Mes</string>
+    <string name="payments_date">Fecha de pago</string>
+    <string name="payments_amount">Cantidad pagada</string>
+    <string name="payments_status">Estatus</string>
 </resources>

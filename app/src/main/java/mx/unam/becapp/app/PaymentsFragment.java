@@ -146,6 +146,8 @@ public class PaymentsFragment extends TabFragment {
             holder.mStatus.setText(payment.status);
             holder.mAmount.setText("$" + payment.amount);
 
+            /**
+
             Drawable background;
 
             if (isYellow(i))
@@ -159,6 +161,7 @@ public class PaymentsFragment extends TabFragment {
             } else {
                 holder.mBackground.setBackground(background);
             }
+            */
 
             return row;
         }

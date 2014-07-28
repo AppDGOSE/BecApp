@@ -10,7 +10,6 @@ import java.io.OutputStreamWriter;
 import org.json.JSONObject;
 
 import android.os.NetworkOnMainThreadException;
-import android.util.Log;
 import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -96,7 +95,7 @@ public class Session implements Serializable {
      */
     public void signOut() {
         try {
-            JSONObject result = send(this.signOutPath, "DELETE");
+            JSONObject result = send(signOutPath, "DELETE");
             this.status = result.getString("status");
             this.message = result.getString("message");
         } catch (JSONException e) {
@@ -192,6 +191,7 @@ public class Session implements Serializable {
             conn.connect();
             status = conn.getResponseCode();
         } catch (IOException e) {
+        } catch (NullPointerException e) {
         }
 
         InputStream istream;
