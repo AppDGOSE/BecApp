@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:text="@string/payments_amount"
+            android:text="@string/payments_status"
             android:layout_below="@id/text_status"
             android:textColor="@android:color/darker_gray">
         </TextView>
