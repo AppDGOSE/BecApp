@@ -1,5 +1,6 @@
 <FrameLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ac8620"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/SplashScreen"></FrameLayout>

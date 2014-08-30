@@ -4,7 +4,7 @@
     <!-- Base application theme. -->
 
     <!-- <style name="AppTheme" parent="Theme.Becappblue"/> -->
-    <style name="AppTheme" parent="Theme.Becappgoldandblue"/>
+    <style name="AppTheme" parent="Theme.Becapp"/>
 
     <style name="DialogTheme" parent="@style/AppTheme">
         <item name="android:windowNoTitle">true</item>
