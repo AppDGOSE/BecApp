@@ -19,11 +19,11 @@ import android.view.Window;
  * A simple {@link DialogFragment} subclass.
  *
  */
-public class HelpDialogFragment extends DialogFragment {
+public class ContactDialogFragment extends DialogFragment {
 
-    private final static String FBPAGE = "https://www.facebook.com/pages/Orientación-y-Servicios-Educativos/373376889340467";
-    private final static String WEB = "http://www.dgose.unam.mx";
-    private final static String EMAIL = "user@example.com";
+    private final static String FBPAGE = "https://www.facebook.com/pages/Becarios-UNAM/275733789169485";
+    private final static String WEB = "http://www.becarios.unam.mx/portal/";
+    private final static String EMAIL = "becarios@unam.mx";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

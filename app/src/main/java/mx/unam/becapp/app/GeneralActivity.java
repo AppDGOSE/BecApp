@@ -117,19 +117,19 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             return true;
         }
 
-        if (id == R.id.action_help) {
-            showHelpDialog();
+        if (id == R.id.action_contact) {
+            showContactDialog();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void showHelpDialog() {
+    public void showContactDialog() {
         FragmentManager manager = getSupportFragmentManager();
-        HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
+        ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
 
-        helpDialogFragment.show(manager, "HelpDialog");
+        contactDialogFragment.show(manager, "ContactDialog");
     }
 
     @Override
