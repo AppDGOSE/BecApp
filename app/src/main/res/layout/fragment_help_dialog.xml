@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/contact_fb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@drawable/contact_fb"
+        android:paddingBottom="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/contact_web"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@drawable/contact_web"
+        android:paddingBottom="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/contact_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:src="@drawable/contact_mail"
+        android:onClick=""
+        />
+
+</LinearLayout>

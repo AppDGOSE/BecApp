@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import android.content.Intent;
@@ -115,7 +116,20 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
 
             return true;
         }
+
+        if (id == R.id.action_help) {
+            showHelpDialog();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showHelpDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        HelpDialogFragment helpDialogFragment = new HelpDialogFragment();
+
+        helpDialogFragment.show(manager, "HelpDialog");
     }
 
     @Override
