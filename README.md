@@ -18,4 +18,10 @@ Cliente Android del sistema de la AppDGOSE. Gradle.
   Dónde `/path/to/sdk` es la ruta __absoluta__ hacia el SDK de Android.
 4. Al ejecutar `./gradlew check` en el directorio raíz, debe concluir con el mensaje `BUILD SUCCESSFUL`.
 
+
+## Paquetes requeridos del SDK. ##
+- Android 4.4.2 (API 19)
+- Extras | Android Support Repository
+- Extras | Android Support Library
+
 Para probar la aplicación en un dispositivo con Android y USB debugging activado o un AVD, primero conectar el dispositivo a la PC o iniciar el emulador y ejecutar `./gradlew installDebug`.
