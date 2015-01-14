@@ -8,7 +8,7 @@ import android.content.Intent;
 
 public class BecAppActivity extends Activity {
 
-	private long splashDelay = 2000;
+	private long splashDelay = 2500;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

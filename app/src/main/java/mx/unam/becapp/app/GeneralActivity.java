@@ -122,6 +122,16 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             return true;
         }
 
+        if (id == R.id.action_about) {
+            showAboutDialog();
+            return true;
+        }
+
+        if (id == R.id.action_stolen) {
+            showStolenDialog();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,6 +140,20 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         ContactDialogFragment contactDialogFragment = new ContactDialogFragment();
 
         contactDialogFragment.show(manager, "ContactDialog");
+    }
+
+    public void showAboutDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
+
+        aboutDialogFragment.show(manager, "AboutDialog");
+    }
+
+    public void showStolenDialog() {
+        FragmentManager manager = getSupportFragmentManager();
+        StolenDialogFragment stolenDialogFragment = new StolenDialogFragment();
+
+        stolenDialogFragment.show(manager, "AboutDialog");
     }
 
     @Override

@@ -4,10 +4,16 @@
     <string name="app_name">BecAPP</string>
     <string name="welcome">Bienvenido!</string>
     <string name="action_logout">Cerrar Sesión</string>
+    <string name="action_about">Acerca de...</string>
+    <string name="action_stolen">Robo/Extravío</string>
     <string name="no_connection">Sin conexión</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_app_name_blue">becApp </string>
     <string name="login_app_name_gold">UNAM</string>
     <string name="action_contact">Contáctanos</string>
-
+    <string name="app_name_version">BecAPP 1.0</string>
+    <string name="copyright">Copyright @2015 UNAM - DGOSE</string>
+    <string name="UNAM">UNAM</string>
+    <string name="UNAM_online">UNAM en linea</string>
+    <string name="button_stolen">En caso de robo presiona aquí</string>
 </resources>
