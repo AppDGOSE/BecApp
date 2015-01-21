@@ -20,7 +20,7 @@ import android.view.Window;
  */
 public class StolenDialogFragment extends DialogFragment {
 
-    private final static String STOLENPAGE = "http://www.unam.mx";
+    private final static String STOLENPAGE = "http://www.becarios.unam.mx/portal/Pbecas/lic/prounam/manutencion.html#robo";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
