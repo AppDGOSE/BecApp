@@ -42,14 +42,13 @@ public class PaymentsFragment extends TabFragment {
         mLoadingStatusView = view.findViewById(R.id.loading_status);
         mErrorButtonView = view.findViewById(R.id.error_status);
 
-        view.findViewById(R.id.reload_button).setOnClickListener(
-                new View.OnClickListener() {
+        view.findViewById(R.id.reload_button).
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         attemptGetData();
                     }
-                }
-        );
+                });
 
         attemptGetData();
         return view;
@@ -148,19 +147,19 @@ public class PaymentsFragment extends TabFragment {
 
             /**
 
-            Drawable background;
+               Drawable background;
 
-            if (isYellow(i))
-                background = getResources().getDrawable(R.drawable.yellow_background);
-            else
-                background = getResources().getDrawable(R.drawable.white_background);
+               if (isYellow(i))
+               background = getResources().getDrawable(R.drawable.yellow_background);
+               else
+               background = getResources().getDrawable(R.drawable.white_background);
 
-            int sdk = android.os.Build.VERSION.SDK_INT;
-            if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                holder.mBackground.setBackgroundDrawable(background);
-            } else {
-                holder.mBackground.setBackground(background);
-            }
+               int sdk = android.os.Build.VERSION.SDK_INT;
+               if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+               holder.mBackground.setBackgroundDrawable(background);
+               } else {
+               holder.mBackground.setBackground(background);
+               }
             */
 
             return row;

@@ -40,15 +40,14 @@ public class InfoFragment extends TabFragment {
 
         Button button = (Button) view.findViewById(R.id.reload_button);
 
-        button.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    attemptGetData();
-                }
-            }
-        );
-
+        button.
+            setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        attemptGetData();
+                    }
+                });
+        
         attemptGetData();
         return view;
     }

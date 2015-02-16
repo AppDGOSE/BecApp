@@ -11,7 +11,7 @@ import org.json.JSONException;
  */
 public class Profile extends Information {
     public static String path = "/profile/";
-	
+
     /* NOTE: Todas las siguientes propiedades
      * son de sólo lectura. Lo que implica que
      * deberían ser privadas y tener getters.
@@ -33,11 +33,11 @@ public class Profile extends Information {
     public String curp;
     public String current_cycle;
     public String scholarship_status;
-    		
+
     public Profile (Session session) {
         this.session = session;
     }
-	
+
     public void getData() {
 
         status = "0";
@@ -50,22 +50,22 @@ public class Profile extends Information {
             message = result.getString("message");
 
             if (status.equals("200")) {
-				JSONObject profile = result.getJSONObject("profile");
-				
-				student_number = profile.getString("student_number");
-				fullname = profile.getString("name");
+                JSONObject profile = result.getJSONObject("profile");
+
+                student_number = profile.getString("student_number");
+                fullname = profile.getString("name");
                 unam_email = profile.getJSONObject("email").getString("unam");
                 com_email = profile.getJSONObject("email").getString("com");
                 curp = profile.getString("curp");
                 phone_number = profile.getJSONObject("phone").getString("direct");
                 mobile_number = profile.getJSONObject("phone").getString("mobile");
-				school = profile.getString("school");
-				major = profile.getString("major");
-				scholarship = profile.getJSONObject("scholarship").getString("name");
+                school = profile.getString("school");
+                major = profile.getString("major");
+                scholarship = profile.getJSONObject("scholarship").getString("name");
                 scholarship_status = profile.getJSONObject("scholarship").getString("status");
                 current_cycle = profile.getString("current_cycle");
             }
-			
+
         } catch (JSONException e) {
         } catch (NullPointerException e) {
         }

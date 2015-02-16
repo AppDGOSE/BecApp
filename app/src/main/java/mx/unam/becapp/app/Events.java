@@ -46,14 +46,14 @@ public class Events extends Information {
 
     public void getData() {
 
-		status = "0";
-		message = "Failure";
-		
+        status = "0";
+        message = "Failure";
+
         try {
-			JSONObject result = session.send(path, "GET");
-			
-			status = result.getString("status");
-			message = result.getString("message");
+            JSONObject result = session.send(path, "GET");
+
+            status = result.getString("status");
+            message = result.getString("message");
 
             if (session.getStatus().equals("200")) {
                 JSONArray events = result.getJSONArray("events");
@@ -75,7 +75,7 @@ public class Events extends Information {
                     event.email = temp.getString("email");
                 }
 
-        }
+            }
 
         } catch (JSONException e) {
         } catch (NullPointerException e) {

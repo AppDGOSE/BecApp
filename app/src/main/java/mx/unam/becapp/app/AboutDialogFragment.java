@@ -27,10 +27,10 @@ public class AboutDialogFragment extends DialogFragment {
 
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        View view =  inflater.inflate(R.layout.fragment_about_dialog, container, false);
+        View view = inflater.inflate(R.layout.fragment_about_dialog, container, false);
 
-        view.findViewById(R.id.left_unam).setOnClickListener(
-                new View.OnClickListener() {
+        view.findViewById(R.id.left_unam).
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
@@ -48,11 +48,10 @@ public class AboutDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
+                });
 
-        view.findViewById(R.id.right_unam).setOnClickListener(
-                new View.OnClickListener() {
+        view.findViewById(R.id.right_unam).
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
@@ -70,8 +69,7 @@ public class AboutDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
+                });
 
         return view;
 

@@ -36,8 +36,8 @@ public class ContactDialogFragment extends DialogFragment {
         ImageView contactWeb = (ImageView) view.findViewById(R.id.contact_web);
         ImageView contactMail = (ImageView) view.findViewById(R.id.contact_mail);
 
-        contactFb.setOnClickListener(
-                new View.OnClickListener() {
+        contactFb.
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
@@ -55,11 +55,10 @@ public class ContactDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
+                });
 
-        contactWeb.setOnClickListener(
-                new View.OnClickListener() {
+        contactWeb.
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
@@ -75,16 +74,16 @@ public class ContactDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
+                });
 
-        contactMail.setOnClickListener(
-                new View.OnClickListener() {
+        contactMail.
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
-                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                    "mailto",EMAIL, null));
+                            Intent intent = new Intent(Intent.ACTION_SENDTO,
+                                                       Uri.fromParts("mailto",EMAIL, null));
+                            
                             startActivity(Intent.createChooser(intent, "Send email..."));
 
                         } catch (ActivityNotFoundException e) {
@@ -95,8 +94,7 @@ public class ContactDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
+                });
 
 
         return view;

@@ -46,14 +46,13 @@ public class EventsFragment extends TabFragment {
         mLoadingStatusView = view.findViewById(R.id.loading_status);
         mErrorButtonView = view.findViewById(R.id.error_status);
 
-        view.findViewById(R.id.reload_button).setOnClickListener(
-                new View.OnClickListener() {
+        view.findViewById(R.id.reload_button).
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         attemptGetData();
                     }
-                }
-        );
+                });
 
         attemptGetData();
         return view;
@@ -149,8 +148,8 @@ public class EventsFragment extends TabFragment {
             holder.mEndDate.setText(event.end);
             holder.mPlace.setText(event.place_name);
 
-            holder.mURL.setOnClickListener(
-                    new View.OnClickListener() {
+            holder.mURL.
+                setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Uri uri;
@@ -160,7 +159,7 @@ public class EventsFragment extends TabFragment {
 
                                 if (!("http://").equals(event.url.substring(0, 7)))
                                     browser_url = "http://" + event.url;
-                                 else
+                                else
                                     browser_url = event.url;
 
                                 uri = Uri.parse(browser_url);
@@ -178,8 +177,7 @@ public class EventsFragment extends TabFragment {
                                 toast.show();
                             }
                         }
-                    }
-            );
+                    });
 
             return row;
         }

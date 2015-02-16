@@ -66,11 +66,11 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         // tab. We can also use ActionBar.Tab#select() to do this if we have
         // a reference to the Tab.
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
+                @Override
+                public void onPageSelected(int position) {
+                    actionBar.setSelectedNavigationItem(position);
+                }
+            });
 
         mViewPager.setOffscreenPageLimit(NUMBER_OF_TABS - 1);
         // For each of the sections in the app, add a tab to the action bar.
@@ -80,9 +80,9 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             // the TabListener interface, as the callback (listener) for when
             // this tab is selected.
             actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
-                            .setTabListener(this));
+                             actionBar.newTab()
+                             .setText(mSectionsPagerAdapter.getPageTitle(i))
+                             .setTabListener(this));
         }
 
         Intent intent = getIntent();
@@ -186,12 +186,12 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             // getItem is called to instantiate the fragment for the given page.
 
             switch (position) {
-                case INFO:
-                    return new InfoFragment(profile);
-                case PAYMENTS:
-                    return new PaymentsFragment(payments);
-                case EVENTS:
-                    return new EventsFragment(events);
+            case INFO:
+                return new InfoFragment(profile);
+            case PAYMENTS:
+                return new PaymentsFragment(payments);
+            case EVENTS:
+                return new EventsFragment(events);
             }
 
             return null;
@@ -207,12 +207,12 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
-                case INFO:
-                    return getString(R.string.title_info).toUpperCase(l);
-                case PAYMENTS:
-                    return getString(R.string.title_payments).toUpperCase(l);
-                case EVENTS:
-                    return getString(R.string.title_events).toUpperCase(l);
+            case INFO:
+                return getString(R.string.title_info).toUpperCase(l);
+            case PAYMENTS:
+                return getString(R.string.title_payments).toUpperCase(l);
+            case EVENTS:
+                return getString(R.string.title_events).toUpperCase(l);
             }
             return null;
         }

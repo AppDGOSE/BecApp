@@ -29,8 +29,8 @@ public class StolenDialogFragment extends DialogFragment {
 
         View view =  inflater.inflate(R.layout.fragment_stolen_dialog, container, false);
 
-        view.findViewById(R.id.url_button).setOnClickListener(
-                new View.OnClickListener() {
+        view.findViewById(R.id.url_button).
+            setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
@@ -48,9 +48,8 @@ public class StolenDialogFragment extends DialogFragment {
                             toast.show();
                         }
                     }
-                }
-        );
-
+                });
+        
         return view;
 
     }

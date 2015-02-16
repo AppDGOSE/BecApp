@@ -1,18 +1,18 @@
 package mx.unam.becapp.app;
 
 abstract class Information {
-	protected Session session;
+    protected Session session;
 
-	protected String status;
-	protected String message;
+    protected String status;
+    protected String message;
 
-	abstract void getData();
+    abstract void getData();
 
-	public String getStatus() {
-		return this.status;
-	}
+    public String getStatus() {
+        return this.status;
+    }
 
-	public String getMessage() {
-		return this.message;
-	}
+    public String getMessage() {
+        return this.message;
+    }
 }

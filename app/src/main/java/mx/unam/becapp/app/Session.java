@@ -56,7 +56,7 @@ public class Session implements Serializable {
      * @param number Número de cuenta como String.
      * @param password Contraseña.
      */
-    public void signIn(String number, String password) { 
+    public void signIn(String number, String password) {
         JSONObject jsonUser;
         JSONObject jsonObject = null;
         JSONObject response;
@@ -80,8 +80,8 @@ public class Session implements Serializable {
             if (this.status.equals("200")) {
                 SimpleDateFormat dparse = new SimpleDateFormat(DFORMAT);
                 this.last_signin = dparse.parse(result
-                        .getJSONObject("user")
-                        .getString("last_login"));
+                                                .getJSONObject("user")
+                                                .getString("last_login"));
             }
         } catch (JSONException e) {
         } catch (ParseException e) {
@@ -154,7 +154,7 @@ public class Session implements Serializable {
     }
 
     /**
-     * Envia un objeto JSON a la dirección indicada 
+     * Envia un objeto JSON a la dirección indicada
      *
      * @param path      Ruta de la API. E.g. /users/sign_in/
      * @param method    Método de la solicitud HTTP.
@@ -221,9 +221,9 @@ public class Session implements Serializable {
      * @return Objeto JSON.
      */
     private JSONObject parseInputStream (InputStream istream) throws JSONException {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
-            StringBuilder sbuilder = new StringBuilder();
-            String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
+        StringBuilder sbuilder = new StringBuilder();
+        String line;
         try {
             while ((line = reader.readLine()) != null) {
                 sbuilder.append(line);
