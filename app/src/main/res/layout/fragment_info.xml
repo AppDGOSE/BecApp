@@ -328,8 +328,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/scholarship_status_fill"
                 android:layout_gravity="left|top"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"/>
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -340,6 +340,70 @@
                 android:layout_gravity="left|top"
                 android:paddingLeft="5dp"
                 android:paddingBottom="5dp"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/bank_name_fill"
+                android:layout_gravity="left|top"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/list_item_scholarship_bank_name"
+                android:id="@+id/scholarship_bank_name"
+                android:layout_gravity="left|top"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/bank_account_fill"
+                android:layout_gravity="left|top"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/list_item_scholarship_bank_account"
+                android:id="@+id/scholarship_bank_account"
+                android:layout_gravity="left|top"
+                android:paddingLeft="5dp"
+                android:paddingBottom="5dp"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <Button
+                android:id="@+id/stolen_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/button_stolen"
+                android:background="#E9EAED"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"/>
 
             <View
                 android:layout_width="wrap_content"

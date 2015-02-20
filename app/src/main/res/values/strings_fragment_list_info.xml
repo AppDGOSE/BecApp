@@ -16,5 +16,7 @@
     <string name="list_header_scholarship">BECA</string>
     <string name="list_item_scholarship_name">NOMBRE</string>
     <string name="list_item_scholarship_status">ESTATUS</string>
+    <string name="list_item_scholarship_bank_name">NOMBRE DEL BANCO</string>
+    <string name="list_item_scholarship_bank_account">CUENTA DEL BANCO</string>
     <string name="list_item_scholarship_cycle">CICLO ACTUAL</string>
 </resources>

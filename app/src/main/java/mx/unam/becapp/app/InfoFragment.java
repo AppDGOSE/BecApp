@@ -7,6 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.net.Uri;
+import android.content.Intent;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 
 /**
  * A fragment representing a list of Items.
@@ -17,6 +22,8 @@ import android.widget.TextView;
  */
 
 public class InfoFragment extends TabFragment {
+
+    private final static String STOLENPAGE = "http://www.becarios.unam.mx/portal/Pbecas/lic/prounam/manutencion.html#robo";
 
     public InfoFragment(Profile profile) {
         this.information = profile;
@@ -76,6 +83,10 @@ public class InfoFragment extends TabFragment {
         TextView mScholarship = (TextView) mInformationView.findViewById(R.id.scholarship_name_fill);
         TextView mScholarshipStatus = (TextView) mInformationView.findViewById(R.id.scholarship_status_fill);
         TextView mCurrentCycle = (TextView) mInformationView.findViewById(R.id.scholarship_cycle_fill);
+        TextView mBankName = (TextView) mInformationView.findViewById(R.id.bank_name_fill);
+        TextView mBankAccount = (TextView) mInformationView.findViewById(R.id.bank_account_fill);
+
+        View mStolenButton = mInformationView.findViewById(R.id.stolen_button);
 
         Profile profile = (Profile) information;
 
@@ -89,6 +100,29 @@ public class InfoFragment extends TabFragment {
         mScholarship.setText(profile.scholarship);
         mScholarshipStatus.setText(profile.scholarship_status);
         mCurrentCycle.setText(profile.current_cycle);
+        mBankName.setText(profile.bank_name);
+        mBankAccount.setText(profile.bank_account);
+
+        mStolenButton.findViewById(R.id.stolen_button).
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Uri uri;
+                            uri = Uri.parse(STOLENPAGE);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+
+                            Context context = getActivity().getApplicationContext();
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, e.getMessage(), duration);
+                            toast.show();
+                        }
+                    }
+                });
 
         showInformation(true);
     }

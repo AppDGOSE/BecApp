@@ -46,7 +46,7 @@ public class Payments extends Information {
         public String amount;
         public String done;
         public String status;
-        public int    month_number;
+        public int monthNumber;
 
         Payment(String month, String amount, String done, String status) {
             this.month = month;
@@ -55,38 +55,35 @@ public class Payments extends Information {
             this.status = status;
 
             if (this.month.equals("Enero")) {
-                this.month_number = JANUARY;
+                this.monthNumber = JANUARY;
             } else if (this.month.equals("Febrero")) {
-                this.month_number = FEBRUARY;
+                this.monthNumber = FEBRUARY;
             } else if (this.month.equals("Marzo")) {
-                this.month_number = MARCH;
+                this.monthNumber = MARCH;
             } else if (this.month.equals("Abril")) {
-                this.month_number = APRIL;
+                this.monthNumber = APRIL;
             } else if (this.month.equals("Mayo")) {
-                this.month_number = MAY;
+                this.monthNumber = MAY;
             } else if (this.month.equals("Junio")) {
-                this.month_number = JUNE;
+                this.monthNumber = JUNE;
             } else if (this.month.equals("Julio")) {
-                this.month_number = JULY;
+                this.monthNumber = JULY;
             } else if (this.month.equals("Agosto")) {
-                this.month_number = AUGUST;
+                this.monthNumber = AUGUST;
             } else if (this.month.equals("Septiembre")) {
-                this.month_number = SEPTEMBER;
+                this.monthNumber = SEPTEMBER;
             } else if (this.month.equals("Octubre")) {
-                this.month_number = OCTOBER;
+                this.monthNumber = OCTOBER;
             } else if (this.month.equals("Noviembre")) {
-                this.month_number = NOVEMBER;
+                this.monthNumber = NOVEMBER;
             } else {
-                this.month_number = DECEMBER;
+                this.monthNumber = DECEMBER;
             }
 
-            if (this.month_number < (currentMonth - 1))
-                this.month_number += 12;
+            if (this.monthNumber < (currentMonth - 1))
+                this.monthNumber += 12;
         }
     }
-
-    public String bank_name;
-    public String bank_account;
 
     public ArrayList<Payment> calendar;
 
@@ -137,9 +134,6 @@ public class Payments extends Information {
             if (status.equals("200")) {
                 JSONObject payments = result.getJSONObject("payments");
 
-                bank_name = payments.getJSONObject("bank").getString("name");
-                bank_account = payments.getJSONObject("bank").getString("account");
-
                 JSONArray months = payments.getJSONArray("calendar");
                 calendar = new ArrayList<Payment>(months.length());
                 for (int i = 0; i < months.length(); i++) {
@@ -155,7 +149,7 @@ public class Payments extends Information {
                     Collections.sort(calendar, new Comparator<Payment>() {
                             @Override
                             public int compare(Payment a, Payment  b) {
-                                return  (a.month_number - b.month_number);
+                                return  (a.monthNumber - b.monthNumber);
                             }
                         });
                 }

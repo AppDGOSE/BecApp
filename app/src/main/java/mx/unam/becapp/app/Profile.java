@@ -33,6 +33,8 @@ public class Profile extends Information {
     public String curp;
     public String current_cycle;
     public String scholarship_status;
+    public String bank_name;
+    public String bank_account;
 
     public Profile (Session session) {
         this.session = session;
@@ -64,6 +66,8 @@ public class Profile extends Information {
                 scholarship = profile.getJSONObject("scholarship").getString("name");
                 scholarship_status = profile.getJSONObject("scholarship").getString("status");
                 current_cycle = profile.getString("current_cycle");
+                bank_name = profile.getJSONObject("bank").getString("name");
+                bank_account = profile.getJSONObject("bank").getString("account");
             }
 
         } catch (JSONException e) {

@@ -16,4 +16,6 @@
     <string name="UNAM">UNAM</string>
     <string name="UNAM_online">UNAM en linea</string>
     <string name="button_stolen">En caso de robo presiona aquí</string>
+    <string name="ok">Ok</string>
+    <string name="unseen_events">¡Hay eventos nuevos!</string>
 </resources>

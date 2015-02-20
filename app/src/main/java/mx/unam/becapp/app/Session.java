@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import org.json.JSONObject;
 
 import android.os.NetworkOnMainThreadException;
+import android.util.Log;
+
 import java.lang.StringBuilder;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -23,11 +25,12 @@ public class Session implements Serializable {
 
     private static String signInPath = "/users/sign_in/";
     private static String signOutPath = "/users/sign_out/";
-    private static String DFORMAT = "yyyy-MM-dd HH:mm:ss Z";
+    private static String DFORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     private String status = "";
     private String message = "";
     private Date last_signin;
+    private Boolean new_events = false;
     /**
      * Constructor
      */
@@ -49,6 +52,9 @@ public class Session implements Serializable {
     }
     public Date getLastSignIn() {
         return this.last_signin;
+    }
+    public Boolean getNewEvents() {
+        return this.new_events;
     }
 
     /**
@@ -78,10 +84,15 @@ public class Session implements Serializable {
             this.message = result.getString("message");
 
             if (this.status.equals("200")) {
+
+                this.new_events = result.getJSONObject("user")
+                        .getBoolean("new_events");
+
                 SimpleDateFormat dparse = new SimpleDateFormat(DFORMAT);
                 this.last_signin = dparse.parse(result
                                                 .getJSONObject("user")
                                                 .getString("last_login"));
+
             }
         } catch (JSONException e) {
         } catch (ParseException e) {

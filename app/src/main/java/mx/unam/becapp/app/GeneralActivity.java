@@ -2,6 +2,7 @@ package mx.unam.becapp.app;
 
 import java.util.Locale;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,9 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import android.util.Log;
+
 
 
 import android.content.Intent;
@@ -88,6 +92,10 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         Intent intent = getIntent();
         session = (Session) intent.getSerializableExtra("sessionObject");
 
+        if (session.getNewEvents())
+            showUnSeenEventsDialog();
+
+
         payments = new Payments(session);
         profile = new Profile(session);
         events = new Events(session);
@@ -127,11 +135,6 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
             return true;
         }
 
-        if (id == R.id.action_stolen) {
-            showStolenDialog();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -149,18 +152,39 @@ public class GeneralActivity extends ActionBarActivity implements ActionBar.TabL
         aboutDialogFragment.show(manager, "AboutDialog");
     }
 
-    public void showStolenDialog() {
+    public void showUnSeenEventsDialog() {
         FragmentManager manager = getSupportFragmentManager();
-        StolenDialogFragment stolenDialogFragment = new StolenDialogFragment();
-
-        stolenDialogFragment.show(manager, "AboutDialog");
+        UnSeenEventsDialogFragment unSeenEventsDialogFragment = new UnSeenEventsDialogFragment();
+        unSeenEventsDialogFragment.show(manager, "unseenEventsDialog");
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
+        if (tab.getPosition() == EVENTS) {
+            AsyncSeenTask task = new AsyncSeenTask();
+            String[] params = {};
+            task.execute(params);
+        }
+
         mViewPager.setCurrentItem(tab.getPosition());
+    }
+
+    private class AsyncSeenTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String[] params) {
+            events.seen();
+            return "";
+        }
+
+        @Override
+        protected void onPostExecute(final String status) {
+        }
+
+        @Override
+        protected void onCancelled() {
+        }
     }
 
     @Override

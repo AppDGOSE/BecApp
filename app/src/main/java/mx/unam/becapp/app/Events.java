@@ -1,5 +1,6 @@
 package mx.unam.becapp.app;
 
+import android.os.NetworkOnMainThreadException;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  */
 public class Events extends Information {
     public static String path = "/events/";
+    public static String seen_path = "/events/seen";
     private Session session;
 
     /* NOTE: Todas las siguientes propiedades
@@ -77,6 +79,17 @@ public class Events extends Information {
 
             }
 
+        } catch (JSONException e) {
+        } catch (NullPointerException e) {
+        }
+    }
+
+    public void seen() {
+        try {
+            JSONObject result = session.send(seen_path, "POST", new JSONObject());
+
+            status = result.getString("status");
+            message = result.getString("message");
         } catch (JSONException e) {
         } catch (NullPointerException e) {
         }
