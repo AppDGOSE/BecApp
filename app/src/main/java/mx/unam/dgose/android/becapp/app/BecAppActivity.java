@@ -1,10 +1,12 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+
+import mx.unam.dgose.android.becapp.R;
 
 public class BecAppActivity extends Activity {
 

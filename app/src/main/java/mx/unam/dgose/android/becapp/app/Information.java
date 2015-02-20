@@ -1,4 +1,4 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 abstract class Information {
     protected Session session;

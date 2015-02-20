@@ -1,6 +1,4 @@
-package mx.unam.becapp.app;
-
-import android.util.Log;
+package mx.unam.dgose.android.becapp.app;
 
 import org.json.JSONObject;
 import org.json.JSONException;

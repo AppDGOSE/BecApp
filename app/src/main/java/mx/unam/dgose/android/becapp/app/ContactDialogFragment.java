@@ -1,4 +1,4 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.Window;
+
+import mx.unam.dgose.android.becapp.R;
 
 
 /**

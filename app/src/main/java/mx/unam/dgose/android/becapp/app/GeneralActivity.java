@@ -1,4 +1,4 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import java.util.Locale;
 
@@ -13,13 +13,11 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
-import android.util.Log;
-
 
 
 import android.content.Intent;
+
+import mx.unam.dgose.android.becapp.R;
 
 public class GeneralActivity extends ActionBarActivity implements ActionBar.TabListener {
 

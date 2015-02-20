@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="mx.unam.becapp.app" >
+    package="mx.unam.dgose.android.becapp"
+    android:versionCode="2"
+    android:versionName="1.0.0">
 
     <!-- Permissiones needed since it's a API client -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".BecAppActivity"
+            android:name="mx.unam.dgose.android.becapp.app.BecAppActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -25,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="mx.unam.dgose.android.becapp.app.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -33,7 +35,7 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name=".GeneralActivity"
+            android:name="mx.unam.dgose.android.becapp.app.GeneralActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label=""
             android:screenOrientation="portrait"

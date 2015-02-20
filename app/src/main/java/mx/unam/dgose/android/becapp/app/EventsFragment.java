@@ -1,4 +1,4 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.content.ActivityNotFoundException;
 import android.widget.Toast;
+
+import mx.unam.dgose.android.becapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

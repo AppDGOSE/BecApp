@@ -1,7 +1,4 @@
-package mx.unam.becapp.app;
-
-import android.os.NetworkOnMainThreadException;
-import android.util.Log;
+package mx.unam.dgose.android.becapp.app;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

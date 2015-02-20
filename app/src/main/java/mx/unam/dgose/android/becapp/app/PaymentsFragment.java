@@ -1,8 +1,7 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+
+import mx.unam.dgose.android.becapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

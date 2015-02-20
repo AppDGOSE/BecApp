@@ -1,4 +1,4 @@
-package mx.unam.becapp.app;
+package mx.unam.dgose.android.becapp.app;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -24,6 +23,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
+
+import mx.unam.dgose.android.becapp.R;
 
 /**
  * Activity which displays a login screen to the user, offering registration as

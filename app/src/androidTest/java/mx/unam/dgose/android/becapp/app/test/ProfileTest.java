@@ -1,8 +1,8 @@
-package mx.unam.becapp.app.test;
+package mx.unam.dgose.android.becapp.app.test;
 
 import junit.framework.TestCase;
-import mx.unam.becapp.app.Session;
-import mx.unam.becapp.app.Profile;
+import mx.unam.dgose.android.becapp.app.Session;
+import mx.unam.dgose.android.becapp.app.Profile;
 import android.test.suitebuilder.annotation.SmallTest;
 
 public class ProfileTest extends TestCase {
